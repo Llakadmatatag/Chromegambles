@@ -1,0 +1,213 @@
+.community-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.community-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.discord-cta {
+    background: linear-gradient(135deg, rgba(114, 137, 218, 0.1), rgba(114, 137, 218, 0.05));
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid rgba(114, 137, 218, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.discord-cta h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #7289DA; /* Discord color */
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.discord-cta p {
+    color: var(--light-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.discord-btn {
+    background: #7289DA !important;
+    border-color: #7289DA !important;
+    align-self: flex-start;
+}
+
+.discord-btn:hover {
+    background: #5e77d4 !important;
+}
+
+.live-stream {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+}
+
+.live-stream h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.live-stream h3 i {
+    color: #FF0000; /* YouTube red */
+}
+
+.stream-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.kick-embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.offline-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none; /* Initially hidden, will be shown by JavaScript if needed */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    z-index: 10; /* Ensure it appears above the iframe */
+    border-radius: 8px;
+}
+
+.offline-message i {
+    font-size: 3rem;
+    color: #FF0000;
+    margin-bottom: 1rem;
+}
+
+.offline-message p {
+    color: var(--light-text);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+}
+
+/* Community Highlights */
+.community-highlights {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+}
+
+.community-highlights h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.community-highlights h3 i {
+    color: var(--accent-gold);
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.highlight-card {
+    background: rgba(30, 30, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.8rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--subtle-shadow);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.highlight-icon {
+    font-size: 2.2rem;
+    color: var(--accent-blue);
+    margin-bottom: 1.2rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.highlight-card:hover .highlight-icon {
+    transform: scale(1.1);
+}
+
+.highlight-card h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.highlight-card p {
+    color: var(--muted-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .community-content {
+        grid-template-columns: 1fr;
+    }
+
+    .discord-cta {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .community-container {
+        padding: 1rem;
+    }
+}

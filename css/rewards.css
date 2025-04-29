@@ -1,0 +1,250 @@
+.bonus-cards {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rewards-section {
+    margin-bottom: 3rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+}
+
+.rewards-section h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rewards-section h3 i {
+    color: var(--primary);
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.reward-card {
+    background: rgba(30, 30, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.8rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.reward-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--subtle-shadow);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.reward-icon {
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.reward-card:hover .reward-icon {
+    transform: scale(1.1);
+}
+
+.reward-card h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.reward-card p {
+    color: var(--muted-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.reward-card.special {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(63, 81, 181, 0.1));
+    border-color: rgba(76, 175, 80, 0.2);
+    position: relative;
+    overflow: visible;
+}
+
+.reward-card.special .reward-icon {
+    color: var(--accent-gold);
+}
+
+/* Trophy image styling */
+.trophy-right-container {
+    position: absolute;
+    right: -80px;
+    bottom: -20px;
+    width: 150px;
+    height: 150px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.trophy-right {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(255, 193, 7, 0.3));
+}
+
+/* Floating animation for trophy */
+.floating-trophy {
+    animation: floatTrophy 4s ease-in-out infinite;
+}
+
+@keyframes floatTrophy {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.reward-card.event {
+    background: linear-gradient(135deg, rgba(63, 81, 181, 0.1), rgba(103, 58, 183, 0.1));
+    border-color: rgba(63, 81, 181, 0.2);
+}
+
+.reward-card.event .reward-icon {
+    color: var(--accent-blue);
+}
+
+/* Events section with trophy */
+.events-section {
+    position: relative;
+    overflow: visible;
+}
+
+/* Left trophy styling */
+.trophy-left-container {
+    position: absolute;
+    left: -80px;
+    bottom: 20px;
+    width: 150px;
+    height: 150px;
+    z-index: 1;
+    pointer-events: none;
+    transform: scaleX(-1); /* Flip horizontally */
+}
+
+.trophy-left {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(63, 81, 181, 0.3));
+}
+
+/* Reverse floating animation for left trophy */
+.floating-trophy-reverse {
+    animation: floatTrophyReverse 4.5s ease-in-out infinite;
+}
+
+@keyframes floatTrophyReverse {
+    0% {
+        transform: translateY(0) rotate(0deg) scaleX(-1);
+    }
+    50% {
+        transform: translateY(-15px) rotate(-5deg) scaleX(-1);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg) scaleX(-1);
+    }
+}
+
+/* Highlight section */
+.bonus-highlight {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(0, 150, 136, 0.05));
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(76, 175, 80, 0.1);
+    text-align: center;
+}
+
+.bonus-highlight h3 {
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.bonus-highlight p {
+    color: var(--light-text);
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+}
+
+.bonus-highlight .cta-button {
+    margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .rewards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bonus-cards {
+        padding: 1rem;
+    }
+
+    .rewards-section {
+        padding: 1.5rem;
+    }
+
+    /* Adjust trophy position for mobile */
+    .trophy-right-container {
+        right: -40px;
+        bottom: -10px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .trophy-left-container {
+        left: -40px;
+        bottom: 10px;
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .trophy-right-container {
+        right: -20px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .trophy-left-container {
+        left: -20px;
+        width: 100px;
+        height: 100px;
+    }
+}

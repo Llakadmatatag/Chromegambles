@@ -1,0 +1,602 @@
+.leaderboard-container {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 2.5rem;
+    margin: 3rem auto;
+    max-width: 1200px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.leaderboard-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.leaderboard-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tab-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tab-header h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.tab-header h3 i {
+    color: var(--primary);
+    font-size: 1.6rem;
+}
+
+.tab-header p {
+    color: var(--muted-text);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Floating images removed as requested */
+
+/* Add new podium styles */
+.top-winners {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1.5rem; /* Reduced from 2rem for better spacing */
+    margin-bottom: 3.5rem; /* Increased from 3rem */
+    height: 340px; /* Increased from 300px to accommodate taller cards */
+    padding: 0 1rem; /* Added horizontal padding */
+}
+
+.winner {
+    position: relative;
+    width: 220px;
+    text-align: center;
+    padding: 2rem 1.5rem; /* Adjusted padding for better proportions */
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+    overflow: visible; /* Changed from hidden to allow crown to be visible */
+}
+
+.winner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+.winner:hover::before {
+    opacity: 1;
+}
+
+.winner:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow);
+}
+
+.winner > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Add margin at the top of the content to make room for crown */
+.winner .position {
+    margin-top: 10px;
+}
+
+.winner.first {
+    height: 300px; /* Increased from 280px for more space */
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 193, 7, 0.05));
+    order: 2;
+    transform: scale(1.1);
+    margin-bottom: 0;
+    border-color: rgba(255, 193, 7, 0.2);
+    z-index: 3; /* Ensure first place is on top */
+}
+
+.winner.second {
+    height: 240px; /* Increased from 220px for more space */
+    background: linear-gradient(135deg, rgba(158, 158, 158, 0.2), rgba(158, 158, 158, 0.05));
+    order: 1;
+    border-color: rgba(158, 158, 158, 0.2);
+    z-index: 2;
+}
+
+.winner.third {
+    height: 230px; /* Increased height to accommodate prize text */
+    background: linear-gradient(135deg, rgba(141, 110, 99, 0.2), rgba(141, 110, 99, 0.05));
+    order: 3;
+    border-color: rgba(141, 110, 99, 0.2);
+    z-index: 1;
+    padding-bottom: 2.5rem; /* Added more padding at the bottom */
+}
+
+.winner .crown {
+    position: absolute;
+    top: -35px; /* Increased from -25px to prevent cropping */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+    z-index: 5; /* Ensure crown is above other elements */
+}
+
+.winner:hover .crown {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.winner.first .crown {
+    color: var(--accent-gold);
+}
+
+.winner.second .crown {
+    color: #9E9E9E;
+}
+
+.winner.third .crown {
+    color: #8D6E63;
+}
+
+.winner .position {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.winner .username {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem; /* Increased from 0.8rem */
+    color: var(--light-text);
+    letter-spacing: 0.5px;
+    /* Add ellipsis for long usernames */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.winner .amount {
+    font-size: 1.2rem; /* Further reduced font size */
+    font-weight: 600;
+    margin-bottom: 1.5rem; /* Increased bottom margin for more space */
+    color: var(--primary);
+    padding: 0 0.5rem;
+    /* Add ellipsis for long amounts */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.winner .prize {
+    font-size: 0.85rem; /* Reduced font size */
+    color: var(--muted-text);
+    font-weight: 500;
+    padding: 0.3rem 0.6rem; /* Reduced horizontal padding */
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: inline-block;
+    max-width: 100%; /* Ensure it doesn't overflow */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .top-winners {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .winner {
+        width: 80%;
+        height: auto !important;
+        margin-bottom: 1rem;
+    }
+
+    .winner.first {
+        transform: scale(1);
+        order: 1;
+    }
+
+    .winner.second {
+        order: 2;
+    }
+
+    .winner.third {
+        order: 3;
+    }
+}
+
+/* Keep existing other-winners styles */
+.other-winners {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+    margin-top: 2rem;
+}
+
+.winner-row-header {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1.2fr 1.3fr; /* Adjusted column widths */
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--subtle-text);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.winner-row {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1.2fr 1.3fr; /* Adjusted to match header */
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    align-items: center;
+}
+
+.winner-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+    transform: translateX(3px);
+}
+
+.winner-row .position {
+    font-weight: 600;
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    text-align: center; /* Center align position numbers */
+}
+
+.winner-row .username {
+    font-weight: 500;
+    color: var(--light-text);
+    font-size: 0.95rem;
+    /* Add ellipsis for long usernames */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 1rem;
+}
+
+.winner-row .amount {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.95rem;
+    text-align: right; /* Right align amounts */
+    padding-right: 1rem; /* Add padding for separation */
+}
+
+.winner-row .prize {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    text-align: center; /* Center align prizes */
+    background: rgba(0, 0, 0, 0.1); /* Added subtle background */
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    display: inline-block;
+    margin-left: 0.5rem; /* Add margin for separation */
+}
+
+/* Add this to hide prize for ranks beyond 6 */
+.winner .prize:empty,
+.winner-row .prize:empty {
+    display: none;
+}
+
+/* Header alignment to match row content */
+.header-rank {
+    text-align: center;
+}
+
+.header-username {
+    text-align: left;
+}
+
+.header-amount {
+    text-align: right;
+    padding-right: 1rem;
+}
+
+.header-prize {
+    text-align: center;
+    padding-left: 0.5rem;
+}
+
+/* Coming Soon styling */
+.coming-soon {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.coming-soon i {
+    font-size: 3rem;
+    color: var(--accent-blue);
+    margin-bottom: 1.5rem;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.coming-soon h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.coming-soon p {
+    color: var(--muted-text);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Leaderboard tabs styling */
+.leaderboard-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 2px;
+}
+
+.tab-btn {
+    background: transparent;
+    color: var(--muted-text);
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0.5rem;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--primary-gradient);
+    transition: width 0.3s ease;
+    border-radius: 3px 3px 0 0;
+}
+
+.tab-btn:hover {
+    color: var(--light-text);
+}
+
+.tab-btn:hover::after {
+    width: 100%;
+}
+
+.tab-btn.active {
+    color: var(--white);
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    width: 100%;
+}
+
+.tab-btn i {
+    font-size: 1.1rem;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.tab-btn:hover i,
+.tab-btn.active i {
+    transform: translateY(-2px);
+}
+
+/* No data message styling */
+.no-data-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.no-data-message i {
+    font-size: 3rem;
+    color: var(--accent-blue);
+    margin-bottom: 1.5rem;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.no-data-message p {
+    color: var(--muted-text);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.winner-row.no-data {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+.no-data-text {
+    color: var(--muted-text);
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Last updated timestamp styling */
+.last-updated {
+    text-align: right;
+    color: var(--muted-text);
+    font-size: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-style: italic;
+}
+
+/* Data source indicator */
+.data-source {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--muted-text);
+}
+
+.data-source.api {
+    background: rgba(76, 175, 80, 0.2);
+    color: var(--primary);
+}
+
+.data-source.firebase {
+    background: rgba(255, 193, 7, 0.2);
+    color: var(--accent-gold);
+}
+
+.data-source.fallback {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+/* Countdown timer styling */
+.countdown-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(30, 30, 30, 0.2));
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--light-text);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--subtle-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-timer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.countdown-timer i {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+}
+
+.timer-text {
+    font-size: 0.95rem;
+}
+
+.timer-value {
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+    background: linear-gradient(90deg, var(--primary), var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
