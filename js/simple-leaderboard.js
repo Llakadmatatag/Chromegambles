@@ -995,7 +995,7 @@ function renderLeaderboard(platform, entries) {
 
         const headerAmount = sanitize.createSafeElement('span', {
             'class': 'header-amount'
-        }, 'Amount');
+        }, 'Wagered');
 
         const headerPrize = sanitize.createSafeElement('span', {
             'class': 'header-prize'

@@ -91,39 +91,7 @@
     color: var(--accent-gold);
 }
 
-/* Trophy image styling */
-.trophy-right-container {
-    position: absolute;
-    right: -80px;
-    bottom: -20px;
-    width: 150px;
-    height: 150px;
-    z-index: 1;
-    pointer-events: none;
-}
 
-.trophy-right {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 5px 15px rgba(255, 193, 7, 0.3));
-}
-
-/* Floating animation for trophy */
-.floating-trophy {
-    animation: floatTrophy 4s ease-in-out infinite;
-}
-
-@keyframes floatTrophy {
-    0% {
-        transform: translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-15px) rotate(5deg);
-    }
-    100% {
-        transform: translateY(0) rotate(0deg);
-    }
-}
 
 .reward-card.event {
     background: linear-gradient(135deg, rgba(63, 81, 181, 0.1), rgba(103, 58, 183, 0.1));
@@ -134,45 +102,10 @@
     color: var(--accent-blue);
 }
 
-/* Events section with trophy */
+/* Events section */
 .events-section {
     position: relative;
     overflow: visible;
-}
-
-/* Left trophy styling */
-.trophy-left-container {
-    position: absolute;
-    left: -80px;
-    bottom: 20px;
-    width: 150px;
-    height: 150px;
-    z-index: 1;
-    pointer-events: none;
-    transform: scaleX(-1); /* Flip horizontally */
-}
-
-.trophy-left {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 5px 15px rgba(63, 81, 181, 0.3));
-}
-
-/* Reverse floating animation for left trophy */
-.floating-trophy-reverse {
-    animation: floatTrophyReverse 4.5s ease-in-out infinite;
-}
-
-@keyframes floatTrophyReverse {
-    0% {
-        transform: translateY(0) rotate(0deg) scaleX(-1);
-    }
-    50% {
-        transform: translateY(-15px) rotate(-5deg) scaleX(-1);
-    }
-    100% {
-        transform: translateY(0) rotate(0deg) scaleX(-1);
-    }
 }
 
 /* Highlight section */
@@ -219,32 +152,9 @@
         padding: 1.5rem;
     }
 
-    /* Adjust trophy position for mobile */
-    .trophy-right-container {
-        right: -40px;
-        bottom: -10px;
-        width: 120px;
-        height: 120px;
-    }
 
-    .trophy-left-container {
-        left: -40px;
-        bottom: 10px;
-        width: 120px;
-        height: 120px;
-    }
 }
 
 @media (max-width: 480px) {
-    .trophy-right-container {
-        right: -20px;
-        width: 100px;
-        height: 100px;
-    }
-
-    .trophy-left-container {
-        left: -20px;
-        width: 100px;
-        height: 100px;
-    }
+    /* Mobile styles */
 }

@@ -457,6 +457,34 @@ function renderLeaderboardUI(data, topContainerId, otherContainerId) {
 
     // Render other winners
     if (otherContainer && data.otherWinners.length > 0) {
+        // Create header row using sanitize utility
+        const headerRow = createSafeElement('div', {
+            'class': 'winner-row-header'
+        });
+
+        const headerRank = createSafeElement('span', {
+            'class': 'header-rank'
+        }, 'Rank');
+
+        const headerUsername = createSafeElement('span', {
+            'class': 'header-username'
+        }, 'Username');
+
+        const headerAmount = createSafeElement('span', {  // Ubah label tapi pertahankan class
+            'class': 'header-amount'
+        }, 'Wagered');
+
+        const headerPrize = createSafeElement('span', {
+            'class': 'header-prize'
+        }, 'Prize');
+
+        headerRow.appendChild(headerRank);
+        headerRow.appendChild(headerUsername);
+        headerRow.appendChild(headerAmount);
+        headerRow.appendChild(headerPrize);
+
+        otherContainer.appendChild(headerRow);
+        
         // Create and append elements for other winners
         data.otherWinners.forEach(winner => {
             const winnerRow = createSafeElement('div', { class: 'winner-row' });
