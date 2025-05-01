@@ -1,0 +1,448 @@
+/**
+ * Enhanced Theme CSS
+ * This file contains styles inspired by the Bonuses & Giveaways page
+ * to be applied to other pages (Home, Our Community, Sponsorships)
+ */
+
+/* Common Card Styles */
+.enhanced-card {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(18, 18, 18, 0.9));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.enhanced-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.enhanced-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.enhanced-card:hover::before {
+    opacity: 1;
+}
+
+/* Enhanced Section Highlight */
+.enhanced-section-highlight {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(0, 150, 136, 0.05));
+    border-radius: 16px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.enhanced-section-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(76, 175, 80, 0.1), transparent 70%);
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.enhanced-section-highlight h3 {
+    color: #4CAF50;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+.enhanced-section-highlight p {
+    color: var(--light-text);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced Icon Style */
+.enhanced-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Home Page Enhancements */
+.welcome-container.enhanced {
+    background: linear-gradient(135deg,
+                rgba(18, 18, 18, 0.9),
+                rgba(30, 30, 30, 0.85)),
+                url('../assets/images/about-us-bg.png');
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 16px;
+    padding: 3rem;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-item.enhanced {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(30, 30, 30, 0.7));
+    border-radius: 16px;
+    border-left: 3px solid var(--primary);
+    padding: 2.2rem 1.8rem;
+    transition: all 0.3s ease;
+}
+
+.feature-item.enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.feature-item.enhanced i {
+    background: rgba(0, 0, 0, 0.2);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item.enhanced:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Sponsorship Page Enhancements */
+.sponsor-card.enhanced {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(30, 30, 30, 0.7));
+    border-radius: 16px;
+    border-left: 3px solid var(--primary);
+    padding: 2.5rem 2rem;
+    transition: all 0.3s ease;
+}
+
+.sponsor-card.enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sponsor-card.enhanced h3::after {
+    width: 60px;
+    height: 3px;
+}
+
+/* Community Page Enhancements */
+.community-content.enhanced {
+    gap: 2.5rem;
+}
+
+.discord-cta.enhanced {
+    background: linear-gradient(135deg, rgba(114, 137, 218, 0.1), rgba(114, 137, 218, 0.05));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(114, 137, 218, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.discord-cta.enhanced h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.discord-cta.enhanced h3::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #7289DA, #9EAEFF);
+    border-radius: 3px;
+}
+
+.discord-cta.enhanced h3 i {
+    font-size: 1.6rem;
+    background: rgba(0, 0, 0, 0.2);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.live-stream.enhanced {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(18, 18, 18, 0.9));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.live-stream.enhanced h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.live-stream.enhanced h3::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #FF0000, #FF6666);
+    border-radius: 3px;
+}
+
+.live-stream.enhanced h3 i {
+    font-size: 1.6rem;
+    background: rgba(0, 0, 0, 0.2);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.community-highlights.enhanced {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(18, 18, 18, 0.9));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.community-highlights.enhanced h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-gold);
+}
+
+.community-highlights.enhanced h3::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #FFD700, #FFC107);
+    border-radius: 3px;
+}
+
+.community-highlights.enhanced h3 i {
+    font-size: 1.6rem;
+    background: rgba(0, 0, 0, 0.2);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.highlight-card.enhanced {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(30, 30, 30, 0.7));
+    border-radius: 16px;
+    border-left: 3px solid var(--accent-gold);
+    padding: 2.2rem 1.8rem;
+    transition: all 0.3s ease;
+}
+
+.highlight-card.enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.highlight-card.enhanced .highlight-icon {
+    background: rgba(0, 0, 0, 0.2);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-card.enhanced:hover .highlight-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .enhanced-section-highlight {
+        padding: 2.5rem;
+    }
+
+    .enhanced-section-highlight h3 {
+        font-size: 1.8rem;
+    }
+
+    .enhanced-section-highlight p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .enhanced-section-highlight {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .enhanced-section-highlight h3 {
+        font-size: 1.5rem;
+    }
+
+    .enhanced-section-highlight p {
+        font-size: 1rem;
+    }
+
+    .enhanced-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .enhanced-card {
+        padding: 1.8rem 1.2rem;
+    }
+
+    .enhanced-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .site-features {
+        grid-template-columns: 1fr;
+    }
+
+    .sponsor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .community-content {
+        flex-direction: column;
+    }
+
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-container.enhanced {
+        padding: 2rem 1.5rem;
+    }
+
+    .enhanced-section-highlight {
+        padding: 1.5rem 1rem;
+    }
+
+    .enhanced-section-highlight h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .tab-btn {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.65rem;
+    }
+
+    .tab-btn i {
+        font-size: 0.8rem;
+    }
+
+    .winner-row-header, .winner-row {
+        grid-template-columns: 0.4fr 1.2fr 1fr 0.8fr;
+        padding: 0.6rem;
+        font-size: 0.7rem;
+    }
+
+    .winner-row .username {
+        font-size: 0.7rem;
+    }
+
+    .winner-row .amount {
+        font-size: 0.7rem;
+    }
+
+    .winner-row .prize {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.3rem;
+    }
+}

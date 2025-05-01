@@ -1,0 +1,525 @@
+.bonus-cards {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 2rem;
+}
+
+/* Bonuses section - spans 12 columns on first row */
+.rewards-section:nth-child(1) {
+    grid-column: span 12;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(18, 18, 18, 0.9));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Giveaways section - spans 7 columns on second row */
+.rewards-section:nth-child(2) {
+    grid-column: span 7;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(18, 18, 18, 0.9));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(76, 175, 80, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Events section - spans 5 columns on second row */
+.rewards-section:nth-child(3) {
+    grid-column: span 5;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(63, 81, 181, 0.1), rgba(18, 18, 18, 0.9));
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(63, 81, 181, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.rewards-section h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.rewards-section:nth-child(1) h3 {
+    color: var(--white);
+}
+
+.rewards-section:nth-child(2) h3 {
+    color: #81c784; /* Light green */
+}
+
+.rewards-section:nth-child(3) h3 {
+    color: #7986cb; /* Light indigo */
+}
+
+.rewards-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 3px;
+}
+
+.rewards-section:nth-child(2) h3::after {
+    background: linear-gradient(to right, #4CAF50, #81c784);
+}
+
+.rewards-section:nth-child(3) h3::after {
+    background: linear-gradient(to right, #3F51B5, #7986cb);
+}
+
+.rewards-section h3 i {
+    font-size: 1.6rem;
+    background: rgba(0, 0, 0, 0.2);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rewards-section:nth-child(1) h3 i {
+    color: var(--primary);
+}
+
+.rewards-section:nth-child(2) h3 i {
+    color: #4CAF50; /* Green */
+}
+
+.rewards-section:nth-child(3) h3 i {
+    color: #3F51B5; /* Indigo */
+}
+
+/* Bonuses grid - 3 equal columns */
+.rewards-section:nth-child(1) .rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0.5rem;
+}
+
+/* Giveaways grid - 2x2 grid with featured card */
+.rewards-section:nth-child(2) .rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0.5rem;
+}
+
+/* Events grid - single column */
+.rewards-section:nth-child(3) .rewards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0.5rem;
+}
+
+/* Base reward card styles */
+.reward-card {
+    background: rgba(30, 30, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2.2rem 1.8rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.reward-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.reward-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.reward-card:hover::before {
+    opacity: 1;
+}
+
+/* Bonus cards styling */
+.rewards-section:nth-child(1) .reward-card {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(30, 30, 30, 0.7));
+    border-left: 3px solid var(--primary);
+}
+
+/* Giveaway cards styling */
+.rewards-section:nth-child(2) .reward-card {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(30, 30, 30, 0.7));
+    border-left: 3px solid #4CAF50;
+}
+
+/* Featured giveaway card */
+.rewards-section:nth-child(2) .reward-card.special {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(30, 30, 30, 0.8));
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    border-left: 3px solid #4CAF50;
+    padding: 2.5rem;
+    position: relative;
+    overflow: visible;
+}
+
+/* Event cards styling */
+.rewards-section:nth-child(3) .reward-card {
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(30, 30, 30, 0.7));
+    border-left: 3px solid #3F51B5;
+    padding: 2.5rem;
+}
+
+.reward-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-section:nth-child(1) .reward-icon {
+    color: var(--primary);
+}
+
+.rewards-section:nth-child(2) .reward-icon {
+    color: #4CAF50;
+}
+
+.rewards-section:nth-child(3) .reward-icon {
+    color: #3F51B5;
+}
+
+.reward-card:hover .reward-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.reward-card h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+}
+
+.reward-card h4::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.reward-card p {
+    color: var(--muted-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+/* Special card badge and ribbon */
+.reward-card.special::after {
+    content: 'FEATURED';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #4CAF50;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.reward-card.special .reward-icon {
+    color: var(--accent-gold);
+    background: rgba(255, 215, 0, 0.1);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    transform: scale(1.1);
+}
+
+/* Ribbon for event cards */
+.reward-card.event::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 50px 50px 0;
+    border-style: solid;
+    border-color: transparent #3F51B5 transparent transparent;
+    z-index: 1;
+}
+
+.reward-card.event::after {
+    content: '\f091'; /* Trophy icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    font-size: 1rem;
+    z-index: 2;
+}
+
+
+
+.reward-card.event {
+    background: linear-gradient(135deg, rgba(63, 81, 181, 0.1), rgba(103, 58, 183, 0.1));
+    border-color: rgba(63, 81, 181, 0.2);
+}
+
+.reward-card.event .reward-icon {
+    color: var(--accent-blue);
+}
+
+/* Events section */
+.events-section {
+    position: relative;
+    overflow: visible;
+}
+
+/* Highlight section */
+.bonus-highlight {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(0, 150, 136, 0.05));
+    border-radius: 16px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.bonus-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(76, 175, 80, 0.1), transparent 70%);
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.bonus-highlight::after {
+    content: 'LIMITED TIME';
+    position: absolute;
+    top: 1.5rem;
+    right: -3rem;
+    background: #ff5722;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.5rem 3rem;
+    transform: rotate(45deg);
+    letter-spacing: 1px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.bonus-highlight h3 {
+    color: #4CAF50;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+.bonus-highlight p {
+    color: var(--light-text);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.bonus-highlight .cta-button {
+    margin-top: 1.5rem;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .bonus-cards {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    /* Adjust grid spans for smaller screens */
+    .rewards-section:nth-child(1) {
+        grid-column: span 6;
+    }
+
+    .rewards-section:nth-child(2) {
+        grid-column: span 6;
+    }
+
+    .rewards-section:nth-child(3) {
+        grid-column: span 6;
+    }
+
+    /* Adjust bonus grid for smaller screens */
+    .rewards-section:nth-child(1) .rewards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .bonus-highlight {
+        padding: 2.5rem;
+    }
+
+    .bonus-highlight h3 {
+        font-size: 1.8rem;
+    }
+
+    .bonus-highlight p {
+        font-size: 1.1rem;
+    }
+
+    .bonus-highlight .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .bonus-cards {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        grid-gap: 1.5rem;
+    }
+
+    .rewards-section:nth-child(1),
+    .rewards-section:nth-child(2),
+    .rewards-section:nth-child(3) {
+        grid-column: span 12;
+        padding: 1.5rem;
+    }
+
+    .rewards-section:nth-child(1) .rewards-grid,
+    .rewards-section:nth-child(2) .rewards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rewards-section:nth-child(2) .reward-card.special {
+        grid-column: span 1;
+    }
+
+    .bonus-highlight {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .bonus-highlight::after {
+        top: 1rem;
+        right: -4rem;
+        font-size: 0.7rem;
+        padding: 0.4rem 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rewards-section h3 {
+        font-size: 1.4rem;
+    }
+
+    .reward-card {
+        padding: 1.8rem 1.2rem;
+    }
+
+    .reward-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    .reward-card h4 {
+        font-size: 1.2rem;
+    }
+
+    .bonus-highlight h3 {
+        font-size: 1.5rem;
+    }
+
+    .bonus-highlight p {
+        font-size: 1rem;
+    }
+
+    .bonus-highlight .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
