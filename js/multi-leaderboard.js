@@ -46,19 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
  * Check if any supported leaderboards are active and load them
  */
 function checkAndLoadLeaderboards() {
-    // Check XFUN May 2025 - Currently in "Coming Soon" state
-    // We'll still initialize the Firebase connection but won't display the data
+    // Check XFUN May 2025 - Now active and displaying data
     const xfunMayContent = document.getElementById('xfun-may2025');
     if (xfunMayContent && xfunMayContent.classList.contains('active')) {
-        // The containers are hidden with CSS, but we'll still connect to Firebase
-        // to keep the configuration ready for when the leaderboard goes live
+        // Clear any existing content first
         const topContainer = document.getElementById('xfun-may2025-top-winners');
         const otherContainer = document.getElementById('xfun-may2025-other-winners');
         if (topContainer) topContainer.innerHTML = '';
         if (otherContainer) otherContainer.innerHTML = '';
 
-        // Initialize Firebase connection but don't render the data
-        // This keeps the configuration ready for when the leaderboard goes live
+        // Render the leaderboard data
+        renderMultiLeaderboard('xfun-may2025', 'xfun-may2025-top-winners', 'xfun-may2025-other-winners');
     }
 
     // Check RAIN.GG
@@ -98,9 +96,8 @@ function addTabClickHandlers() {
             const mayOption = document.querySelector('.period-option[data-period="may2025"]');
             if (mayOption && mayOption.classList.contains('active')) {
                 setTimeout(() => {
-                    // May 2025 is in "Coming Soon" state - no need to render data
-                    // We could initialize Firebase here if needed in the future
-                    // For now, we'll just show the Coming Soon message which is already in the HTML
+                    // Render the May 2025 leaderboard data
+                    renderMultiLeaderboard('xfun-may2025', 'xfun-may2025-top-winners', 'xfun-may2025-other-winners');
                 }, 100); // Small delay to ensure DOM is updated
             }
         });
@@ -146,9 +143,8 @@ function addTabClickHandlers() {
             const xfunContent = document.getElementById('xfun');
             if (xfunContent && xfunContent.classList.contains('active')) {
                 setTimeout(() => {
-                    // May 2025 is in "Coming Soon" state - no need to render data
-                    // We could initialize Firebase here if needed in the future
-                    // For now, we'll just show the Coming Soon message which is already in the HTML
+                    // Render the May 2025 leaderboard data
+                    renderMultiLeaderboard('xfun-may2025', 'xfun-may2025-top-winners', 'xfun-may2025-other-winners');
                 }, 100); // Small delay to ensure DOM is updated
             }
         });

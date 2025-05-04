@@ -226,14 +226,14 @@
                         <div class="period-selector">
                             <div class="period-dropdown">
                                 <button class="period-dropdown-btn">
-                                    <span class="current-period">May 2025 - Coming Soon</span>
+                                    <span class="current-period">May 2025 - 400 Coins</span>
                                     <i class="fas fa-chevron-down"></i>
                                 </button>
                                 <div class="period-dropdown-content">
                                     <a href="#" data-period="may2025" class="period-option active">
                                         <span class="period-name">May 2025</span>
                                         <span class="period-prize">400 Coins</span>
-                                        <span class="period-status upcoming">Coming Soon</span>
+                                        <span class="period-status active">Active</span>
                                     </a>
                                     <a href="#" data-period="apr2025" class="period-option">
                                         <span class="period-name">April 2025</span>
@@ -247,16 +247,21 @@
 
                     <!-- May 2025 Content (Default/Active) -->
                     <div class="period-content active" id="xfun-may2025">
-                        <div class="coming-soon">
-                            <i class="fas fa-hourglass-start"></i>
-                            <h3>Coming Soon</h3>
-                            <p>The May 2025 leaderboard competition will start soon! Join our Discord for updates.</p>
+                        <div class="countdown-timer" data-end="2025-05-31T23:59:00Z">
+                            <i class="fas fa-clock"></i>
+                            <span class="timer-text">Competition ends in: </span>
+                            <span class="timer-value"></span>
                         </div>
-                        <!-- Hidden containers to maintain Firebase connectivity -->
-                        <div class="top-winners" id="xfun-may2025-top-winners" style="display: none;">
+                        <div class="top-winners" id="xfun-may2025-top-winners">
                             <!-- Data akan diisi oleh JavaScript -->
                         </div>
-                        <div class="other-winners" id="xfun-may2025-other-winners" style="display: none;">
+                        <div class="other-winners" id="xfun-may2025-other-winners">
+                            <div class="winner-row-header">
+                                <span class="header-rank">Rank</span>
+                                <span class="header-username">Username</span>
+                                <span class="header-amount">Wagered</span>
+                                <span class="header-prize">Prize</span>
+                            </div>
                             <!-- Data akan diisi oleh JavaScript -->
                         </div>
                     </div>

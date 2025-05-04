@@ -65,11 +65,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     targetContent.classList.add('active');
 
                     // Initialize leaderboard data for this period if needed
-                    if (period === 'may2025') {
-                        // May 2025 is in "Coming Soon" state - no need to render data
-                        // The Coming Soon message is already in the HTML
-                        // We'll keep the Firebase configuration ready for when the leaderboard goes live
-                        // but we won't render any data for now
+                    if (period === 'may2025' && window.multiLeaderboardService && typeof window.multiLeaderboardService.renderLeaderboard === 'function') {
+                        // May 2025 is now active - render the data
+                        try {
+                            window.multiLeaderboardService.renderLeaderboard(
+                                `xfun-${period}`,
+                                `xfun-${period}-top-winners`,
+                                `xfun-${period}-other-winners`
+                            );
+                        } catch (error) {
+                            console.error(`Error loading xfun-${period} leaderboard:`, error);
+                        }
                     } else if (period === 'apr2025' && window.leaderboardService && typeof window.leaderboardService.renderLeaderboard === 'function') {
                         // Use regular leaderboard service for April 2025
                         try {
