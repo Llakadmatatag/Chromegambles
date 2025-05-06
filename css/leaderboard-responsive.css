@@ -1,0 +1,253 @@
+/* Mobile responsiveness */
+@media (max-width: 992px) {
+    .leaderboard-container {
+        padding: 2.5rem;
+    }
+
+    .tab-header h3 {
+        font-size: 2rem;
+    }
+
+    .tab-header p {
+        font-size: 1.1rem;
+    }
+
+    .leaderboard-tabs {
+        max-width: 700px;
+    }
+
+    .tab-btn {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .leaderboard-container {
+        padding: 2rem 1.5rem;
+        margin: 2rem 1rem;
+        border-radius: 12px;
+    }
+
+    .tab-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .tab-header h3 {
+        font-size: 1.8rem;
+    }
+
+    .tab-header p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    /* Tabs */
+    .leaderboard-tabs {
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+        max-width: 100%;
+    }
+
+    .tab-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+        flex: 1 1 40%;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Podium */
+    .top-winners {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        gap: 2rem;
+        padding: 2rem 0;
+        margin-bottom: 3rem;
+    }
+
+    .winner {
+        width: 85%;
+        max-width: 300px;
+        order: unset !important;
+        transform: none !important;
+        height: auto !important;
+        padding: 2rem 1.5rem;
+        min-height: 320px; /* Ensure minimum height */
+    }
+
+    .winner.first {
+        order: 1 !important;
+        min-height: 340px; /* Taller for first place */
+    }
+
+    .winner.second {
+        order: 2 !important;
+        min-height: 320px; /* Ensure minimum height */
+    }
+
+    .winner.third {
+        order: 3 !important;
+        min-height: 320px; /* Ensure minimum height */
+    }
+
+    .winner .username,
+    .winner .amount,
+    .winner .prize {
+        width: 100%; /* Full width on tablet */
+        max-width: 100%; /* Full width on tablet */
+    }
+
+    /* Table */
+    .other-winners {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+    .winner-row-header,
+    .winner-row {
+        grid-template-columns: 0.5fr 2fr 1.5fr;
+        font-size: 0.9rem;
+    }
+
+    .header-prize,
+    .winner-row .prize {
+        display: none;
+    }
+
+    /* Coming soon */
+    .coming-soon {
+        padding: 3rem 2rem;
+    }
+
+    .coming-soon i {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+    }
+
+    .coming-soon h3 {
+        font-size: 1.8rem;
+    }
+
+    .coming-soon p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .leaderboard-container {
+        padding: 1.5rem 1rem;
+        margin: 1.5rem 0.5rem;
+    }
+
+    .tab-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .tab-header p {
+        font-size: 0.9rem;
+    }
+
+    /* Tabs */
+    .tab-btn {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    /* Podium */
+    .winner {
+        width: 90%;
+        padding: 1.8rem 1.2rem;
+        min-height: 280px; /* Ensure minimum height */
+    }
+
+    .winner.first {
+        min-height: 300px; /* Taller for first place */
+    }
+
+    .winner .position {
+        font-size: 2rem;
+    }
+
+    .winner .username {
+        font-size: 0.95rem; /* Smaller font */
+        padding: 0.4rem 0.8rem;
+        width: 100%; /* Full width on mobile */
+        max-width: 100%; /* Full width on mobile */
+    }
+
+    .winner .amount {
+        font-size: 1rem; /* Smaller font */
+        width: 100%; /* Full width on mobile */
+        max-width: 100%; /* Full width on mobile */
+    }
+
+    .winner .prize {
+        font-size: 0.75rem; /* Smaller font */
+        padding: 0.4rem 0.8rem;
+        max-width: 100%; /* Full width on mobile */
+        letter-spacing: 0; /* Remove letter spacing on mobile */
+    }
+
+    .winner .crown {
+        font-size: 2.5rem;
+        top: -30px;
+    }
+
+    /* Table */
+    .winner-row-header,
+    .winner-row {
+        grid-template-columns: 0.5fr 1.5fr 1fr;
+        padding: 1rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .winner-row .username::before {
+        display: none;
+    }
+
+    .winner-row .position {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 0.8rem;
+    }
+
+    .winner-row .username {
+        font-size: 0.8rem;
+    }
+
+    .winner-row .amount {
+        font-size: 0.8rem;
+    }
+
+    /* Coming soon */
+    .coming-soon {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .coming-soon i {
+        width: 70px;
+        height: 70px;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .coming-soon h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .coming-soon p {
+        font-size: 0.9rem;
+    }
+
+    .coming-soon::after {
+        font-size: 0.7rem;
+        padding: 0.4rem 2.5rem;
+        top: 1rem;
+        right: -3.5rem;
+    }
+}
