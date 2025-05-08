@@ -598,14 +598,11 @@
 
         async function fetchRainGGLeaderboard() {
             try {
-                console.log('Fetching RAINGG leaderboard...');
-
                 // Try multiple approaches to get the data
                 let rankings = [];
 
                 // Approach 1: Get the latest document with timestamp
                 try {
-                    console.log('Approach 1: Getting latest document with timestamp...');
                     const latestDoc = await db.collection('rain_gg')
                         .orderBy('timestamp', 'desc')
                         .limit(1)
@@ -613,13 +610,10 @@
 
                     if (!latestDoc.empty) {
                         const doc = latestDoc.docs[0];
-                        console.log('Latest RAINGG document:', doc.id);
 
                         // Check if document has rankings field directly
                         const docData = doc.data();
                         if (docData && docData.rankings) {
-                            console.log('Document has rankings field directly');
-
                             // Convert rankings map to array
                             Object.entries(docData.rankings).forEach(([key, data]) => {
                                 if (data && data.username && data.wagered !== undefined) {
@@ -632,15 +626,11 @@
                             });
                         } else {
                             // Try to get rankings subcollection
-                            console.log('Trying to get rankings subcollection...');
                             const rankingsSnapshot = await doc.ref.collection('rankings').get();
 
                             if (!rankingsSnapshot.empty) {
-                                console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
-
                                 rankingsSnapshot.forEach(rankDoc => {
                                     const data = rankDoc.data();
-                                    console.log('RAINGG rank data:', rankDoc.id, data);
 
                                     if (data && data.username && data.wagered !== undefined) {
                                         rankings.push({
@@ -654,27 +644,21 @@
                         }
                     }
                 } catch (err) {
-                    console.error('Error in approach 1:', err);
+                    // Silent error handling
                 }
 
                 // Approach 2: Try to get all documents and use the most recent one
                 if (rankings.length === 0) {
                     try {
-                        console.log('Approach 2: Getting all documents...');
                         const allDocs = await db.collection('rain_gg').get();
 
                         if (!allDocs.empty) {
-                            console.log('Found', allDocs.size, 'documents in rain_gg collection');
-
                             // Use the first document
                             const doc = allDocs.docs[0];
-                            console.log('Using document:', doc.id);
 
                             // Check if document has rankings field directly
                             const docData = doc.data();
                             if (docData && docData.rankings) {
-                                console.log('Document has rankings field directly');
-
                                 // Convert rankings map to array
                                 Object.entries(docData.rankings).forEach(([key, data]) => {
                                     if (data && data.username && data.wagered !== undefined) {
@@ -687,15 +671,11 @@
                                 });
                             } else {
                                 // Try to get rankings subcollection
-                                console.log('Trying to get rankings subcollection...');
                                 const rankingsSnapshot = await doc.ref.collection('rankings').get();
 
                                 if (!rankingsSnapshot.empty) {
-                                    console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
-
                                     rankingsSnapshot.forEach(rankDoc => {
                                         const data = rankDoc.data();
-                                        console.log('RAINGG rank data:', rankDoc.id, data);
 
                                         if (data && data.username && data.wagered !== undefined) {
                                             rankings.push({
@@ -709,22 +689,18 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error in approach 2:', err);
+                        // Silent error handling
                     }
                 }
 
                 // Approach 3: Try to get rankings collection directly
                 if (rankings.length === 0) {
                     try {
-                        console.log('Approach 3: Getting rankings collection directly...');
                         const rankingsSnapshot = await db.collection('rain_gg_rankings').get();
 
                         if (!rankingsSnapshot.empty) {
-                            console.log('Found rain_gg_rankings collection with', rankingsSnapshot.size, 'documents');
-
                             rankingsSnapshot.forEach(rankDoc => {
                                 const data = rankDoc.data();
-                                console.log('RAINGG rank data:', rankDoc.id, data);
 
                                 if (data && data.username && data.wagered !== undefined) {
                                     rankings.push({
@@ -736,7 +712,7 @@
                             });
                         }
                     } catch (err) {
-                        console.error('Error in approach 3:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -750,26 +726,20 @@
                         item.rank = index + 1;
                     });
 
-                    console.log('Final RAINGG Rankings:', rankings);
                     updateRainGGLeaderboard(rankings);
-                } else {
-                    console.warn('No RAINGG rankings found with any approach');
                 }
             } catch (error) {
-                console.error('Error fetching RAINGG leaderboard:', error);
+                // Silent error handling
             }
         }
 
         async function fetchDicebloxLeaderboard() {
             try {
-                console.log('Fetching DICEBLOX leaderboard...');
-
                 // Try multiple approaches to get the data
                 let rankings = [];
 
                 // Approach 1: Get the latest document with timestamp
                 try {
-                    console.log('Approach 1: Getting latest document with timestamp...');
                     const latestDoc = await db.collection('diceblox')
                         .orderBy('timestamp', 'desc')
                         .limit(1)
@@ -777,13 +747,10 @@
 
                     if (!latestDoc.empty) {
                         const doc = latestDoc.docs[0];
-                        console.log('Latest DICEBLOX document:', doc.id);
 
                         // Check if document has rankings field directly
                         const docData = doc.data();
                         if (docData && docData.rankings) {
-                            console.log('Document has rankings field directly');
-
                             // Convert rankings map to array
                             Object.entries(docData.rankings).forEach(([key, data]) => {
                                 if (data && data.username && data.wagered !== undefined) {
@@ -796,15 +763,11 @@
                             });
                         } else {
                             // Try to get rankings subcollection
-                            console.log('Trying to get rankings subcollection...');
                             const rankingsSnapshot = await doc.ref.collection('rankings').get();
 
                             if (!rankingsSnapshot.empty) {
-                                console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
-
                                 rankingsSnapshot.forEach(rankDoc => {
                                     const data = rankDoc.data();
-                                    console.log('DICEBLOX rank data:', rankDoc.id, data);
 
                                     if (data && data.username && data.wagered !== undefined) {
                                         rankings.push({
@@ -818,27 +781,21 @@
                         }
                     }
                 } catch (err) {
-                    console.error('Error in approach 1:', err);
+                    // Silent error handling
                 }
 
                 // Approach 2: Try to get all documents and use the most recent one
                 if (rankings.length === 0) {
                     try {
-                        console.log('Approach 2: Getting all documents...');
                         const allDocs = await db.collection('diceblox').get();
 
                         if (!allDocs.empty) {
-                            console.log('Found', allDocs.size, 'documents in diceblox collection');
-
                             // Use the first document
                             const doc = allDocs.docs[0];
-                            console.log('Using document:', doc.id);
 
                             // Check if document has rankings field directly
                             const docData = doc.data();
                             if (docData && docData.rankings) {
-                                console.log('Document has rankings field directly');
-
                                 // Convert rankings map to array
                                 Object.entries(docData.rankings).forEach(([key, data]) => {
                                     if (data && data.username && data.wagered !== undefined) {
@@ -851,15 +808,11 @@
                                 });
                             } else {
                                 // Try to get rankings subcollection
-                                console.log('Trying to get rankings subcollection...');
                                 const rankingsSnapshot = await doc.ref.collection('rankings').get();
 
                                 if (!rankingsSnapshot.empty) {
-                                    console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
-
                                     rankingsSnapshot.forEach(rankDoc => {
                                         const data = rankDoc.data();
-                                        console.log('DICEBLOX rank data:', rankDoc.id, data);
 
                                         if (data && data.username && data.wagered !== undefined) {
                                             rankings.push({
@@ -873,22 +826,18 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error in approach 2:', err);
+                        // Silent error handling
                     }
                 }
 
                 // Approach 3: Try to get rankings collection directly
                 if (rankings.length === 0) {
                     try {
-                        console.log('Approach 3: Getting rankings collection directly...');
                         const rankingsSnapshot = await db.collection('diceblox_rankings').get();
 
                         if (!rankingsSnapshot.empty) {
-                            console.log('Found diceblox_rankings collection with', rankingsSnapshot.size, 'documents');
-
                             rankingsSnapshot.forEach(rankDoc => {
                                 const data = rankDoc.data();
-                                console.log('DICEBLOX rank data:', rankDoc.id, data);
 
                                 if (data && data.username && data.wagered !== undefined) {
                                     rankings.push({
@@ -900,7 +849,7 @@
                             });
                         }
                     } catch (err) {
-                        console.error('Error in approach 3:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -914,22 +863,17 @@
                         item.rank = index + 1;
                     });
 
-                    console.log('Final DICEBLOX Rankings:', rankings);
                     updateDicebloxLeaderboard(rankings);
-                } else {
-                    console.warn('No DICEBLOX rankings found with any approach');
                 }
             } catch (error) {
-                console.error('Error fetching DICEBLOX leaderboard:', error);
+                // Silent error handling
             }
         }
 
         function updateRainGGLeaderboard(rankings) {
             try {
-                console.log('Updating RAINGG leaderboard UI with', rankings.length, 'entries');
                 const rainggTab = document.querySelector('#raingg-tab');
                 if (!rainggTab) {
-                    console.error('RAINGG tab element not found');
                     return;
                 }
 
@@ -949,7 +893,7 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error updating RAINGG first place:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -968,7 +912,7 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error updating RAINGG second place:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -987,7 +931,7 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error updating RAINGG third place:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -1012,28 +956,22 @@
                                     }
                                 }
                             } catch (err) {
-                                console.error(`Error updating RAINGG rank ${i+1}:`, err);
+                                // Silent error handling
                             }
                         }
-                    } else {
-                        console.error('RAINGG table body not found');
                     }
                 } catch (err) {
-                    console.error('Error updating RAINGG table:', err);
+                    // Silent error handling
                 }
-
-                console.log('RAINGG leaderboard UI updated successfully');
             } catch (error) {
-                console.error('Error in updateRainGGLeaderboard:', error);
+                // Silent error handling
             }
         }
 
         function updateDicebloxLeaderboard(rankings) {
             try {
-                console.log('Updating DICEBLOX leaderboard UI with', rankings.length, 'entries');
                 const dicebloxTab = document.querySelector('#diceblox-tab');
                 if (!dicebloxTab) {
-                    console.error('DICEBLOX tab element not found');
                     return;
                 }
 
@@ -1053,7 +991,7 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error updating DICEBLOX first place:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -1072,7 +1010,7 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error updating DICEBLOX second place:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -1091,7 +1029,7 @@
                             }
                         }
                     } catch (err) {
-                        console.error('Error updating DICEBLOX third place:', err);
+                        // Silent error handling
                     }
                 }
 
@@ -1116,19 +1054,15 @@
                                     }
                                 }
                             } catch (err) {
-                                console.error(`Error updating DICEBLOX rank ${i+1}:`, err);
+                                // Silent error handling
                             }
                         }
-                    } else {
-                        console.error('DICEBLOX table body not found');
                     }
                 } catch (err) {
-                    console.error('Error updating DICEBLOX table:', err);
+                    // Silent error handling
                 }
-
-                console.log('DICEBLOX leaderboard UI updated successfully');
             } catch (error) {
-                console.error('Error in updateDicebloxLeaderboard:', error);
+                // Silent error handling
             }
         }
 
@@ -1139,6 +1073,9 @@
             // Make sure num is treated as a number
             let numValue = Number(num);
             if (isNaN(numValue)) return '0';
+
+            // Ensure the value is an integer
+            numValue = Math.floor(numValue);
 
             // Format with commas for thousands separator
             // For mobile optimization, abbreviate large numbers
@@ -1166,20 +1103,14 @@
         // Function to directly fetch the document with the timestamp provided
         async function fetchLeaderboardWithTimestamp(collection, timestamp) {
             try {
-                console.log(`Fetching ${collection} leaderboard with specific timestamp: ${timestamp}`);
-
                 // Get the document with the specific timestamp
                 const docRef = db.collection(collection).doc(timestamp);
                 const docSnapshot = await docRef.get();
 
                 if (docSnapshot.exists) {
-                    console.log(`Found ${collection} document with timestamp: ${timestamp}`);
-
                     // Check if the document has a rankings field that's a map
                     const docData = docSnapshot.data();
                     if (docData && docData.rankings) {
-                        console.log(`Found rankings map in ${collection} document`);
-
                         // Convert rankings map to array
                         const rankings = [];
                         Object.entries(docData.rankings).forEach(([key, data]) => {
@@ -1201,8 +1132,6 @@
                                 item.rank = index + 1;
                             });
 
-                            console.log(`${collection} Rankings from map:`, rankings);
-
                             // Update UI based on collection
                             if (collection === 'rain_gg') {
                                 updateRainGGLeaderboard(rankings);
@@ -1215,20 +1144,15 @@
                     }
 
                     // If no rankings map or it's empty, try the rankings subcollection
-                    console.log(`Trying rankings subcollection for ${collection}`);
-
                     try {
                         // Based on the screenshot, we need to get the rankings subcollection
                         const rankingsSnapshot = await docRef.collection('rankings').get();
 
                         if (!rankingsSnapshot.empty) {
-                            console.log(`Found ${collection} rankings collection with`, rankingsSnapshot.size, 'documents');
-
                             // Convert to array
                             const rankings = [];
                             rankingsSnapshot.forEach(rankDoc => {
                                 const data = rankDoc.data();
-                                console.log(`${collection} rank data:`, rankDoc.id, data);
 
                                 // Make sure we have the required fields
                                 if (data && data.username && data.wagered !== undefined) {
@@ -1249,8 +1173,6 @@
                                     item.rank = index + 1;
                                 });
 
-                                console.log(`${collection} Rankings from subcollection:`, rankings);
-
                                 // Update UI based on collection
                                 if (collection === 'rain_gg') {
                                     updateRainGGLeaderboard(rankings);
@@ -1260,15 +1182,12 @@
 
                                 return true;
                             }
-                        } else {
-                            console.warn(`${collection} rankings collection is empty for timestamp: ${timestamp}`);
                         }
                     } catch (err) {
-                        console.error(`Error getting ${collection} rankings collection:`, err);
+                        // Silent error handling
                     }
 
                     // Try to get individual documents by numeric ID (based on screenshot)
-                    console.log(`Trying individual numeric documents for ${collection}`);
                     const rankings = [];
 
                     for (let i = 0; i < 10; i++) {
@@ -1276,7 +1195,6 @@
                             const rankDoc = await docRef.collection('rankings').doc(i.toString()).get();
                             if (rankDoc.exists) {
                                 const data = rankDoc.data();
-                                console.log(`${collection} rank data for ID ${i}:`, data);
 
                                 if (data && data.username && data.wagered !== undefined) {
                                     rankings.push({
@@ -1287,7 +1205,7 @@
                                 }
                             }
                         } catch (err) {
-                            console.error(`Error getting ${collection} rank ${i}:`, err);
+                            // Silent error handling
                         }
                     }
 
@@ -1300,8 +1218,6 @@
                             item.rank = index + 1;
                         });
 
-                        console.log(`${collection} Rankings from individual docs:`, rankings);
-
                         // Update UI based on collection
                         if (collection === 'rain_gg') {
                             updateRainGGLeaderboard(rankings);
@@ -1313,13 +1229,10 @@
                     }
 
                     // Try one more approach - get all documents in the collection
-                    console.log(`Trying to get all documents in ${collection} collection`);
                     try {
                         const allDocsSnapshot = await db.collection(collection).get();
 
                         if (!allDocsSnapshot.empty) {
-                            console.log(`Found ${allDocsSnapshot.size} documents in ${collection} collection`);
-
                             // Find the document with the latest timestamp
                             let latestDoc = null;
                             let latestTimestamp = 0;
@@ -1333,19 +1246,14 @@
                             });
 
                             if (latestDoc) {
-                                console.log(`Found latest ${collection} document:`, latestDoc.id);
-
                                 // Try to get rankings from this document
                                 const rankingsSnapshot = await latestDoc.ref.collection('rankings').get();
 
                                 if (!rankingsSnapshot.empty) {
-                                    console.log(`Found ${collection} rankings collection with`, rankingsSnapshot.size, 'documents');
-
                                     // Convert to array
                                     const rankings = [];
                                     rankingsSnapshot.forEach(rankDoc => {
                                         const data = rankDoc.data();
-                                        console.log(`${collection} rank data:`, rankDoc.id, data);
 
                                         // Make sure we have the required fields
                                         if (data && data.username && data.wagered !== undefined) {
@@ -1366,8 +1274,6 @@
                                             item.rank = index + 1;
                                         });
 
-                                        console.log(`${collection} Rankings from latest document:`, rankings);
-
                                         // Update UI based on collection
                                         if (collection === 'rain_gg') {
                                             updateRainGGLeaderboard(rankings);
@@ -1381,11 +1287,9 @@
                             }
                         }
                     } catch (err) {
-                        console.error(`Error getting all documents in ${collection} collection:`, err);
+                        // Silent error handling
                     }
                 } else {
-                    console.warn(`${collection} document not found with timestamp: ${timestamp}`);
-
                     // Try to find the document with the closest timestamp
                     try {
                         const allDocsSnapshot = await db.collection(collection)
@@ -1393,8 +1297,6 @@
                             .get();
 
                         if (!allDocsSnapshot.empty) {
-                            console.log(`Found ${allDocsSnapshot.size} documents in ${collection} collection`);
-
                             // Find the document with the closest timestamp
                             const targetTime = new Date(timestamp).getTime();
                             let closestDoc = null;
@@ -1411,19 +1313,14 @@
                             });
 
                             if (closestDoc) {
-                                console.log(`Found closest ${collection} document:`, closestDoc.id);
-
                                 // Try to get rankings from this document
                                 const rankingsSnapshot = await closestDoc.ref.collection('rankings').get();
 
                                 if (!rankingsSnapshot.empty) {
-                                    console.log(`Found ${collection} rankings collection with`, rankingsSnapshot.size, 'documents');
-
                                     // Convert to array
                                     const rankings = [];
                                     rankingsSnapshot.forEach(rankDoc => {
                                         const data = rankDoc.data();
-                                        console.log(`${collection} rank data:`, rankDoc.id, data);
 
                                         // Make sure we have the required fields
                                         if (data && data.username && data.wagered !== undefined) {
@@ -1444,8 +1341,6 @@
                                             item.rank = index + 1;
                                         });
 
-                                        console.log(`${collection} Rankings from closest document:`, rankings);
-
                                         // Update UI based on collection
                                         if (collection === 'rain_gg') {
                                             updateRainGGLeaderboard(rankings);
@@ -1459,21 +1354,19 @@
                             }
                         }
                     } catch (err) {
-                        console.error(`Error finding closest document in ${collection} collection:`, err);
+                        // Silent error handling
                     }
                 }
 
                 return false;
             } catch (error) {
-                console.error(`Error fetching ${collection} leaderboard with timestamp:`, error);
+                // Silent error handling
                 return false;
             }
         }
 
         // Initialize leaderboards when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('Initializing leaderboards...');
-
             // Try with the specific timestamp first (from screenshot)
             const rainggTimestamp = '2025-05-08T17:07:45.374Z'; // Update this if needed
             const dicebloxTimestamp = '2025-05-08T17:08:18.589Z'; // Confirmed from screenshot
@@ -1482,7 +1375,6 @@
             fetchLeaderboardWithTimestamp('rain_gg', rainggTimestamp)
                 .then(success => {
                     if (!success) {
-                        console.log('Falling back to general RAINGG fetch');
                         fetchRainGGLeaderboard();
                     }
                 })
@@ -1491,7 +1383,6 @@
             fetchLeaderboardWithTimestamp('diceblox', dicebloxTimestamp)
                 .then(success => {
                     if (!success) {
-                        console.log('Falling back to general DICEBLOX fetch');
                         fetchDicebloxLeaderboard();
                     }
                 })
@@ -1550,39 +1441,6 @@
                     }
                 }, 250); // Debounce resize events
             });
-
-            // Add debugging button (hidden in production)
-            const debugButton = document.createElement('button');
-            debugButton.textContent = 'Debug Leaderboard';
-            debugButton.style.position = 'fixed';
-            debugButton.style.bottom = '10px';
-            debugButton.style.right = '10px';
-            debugButton.style.zIndex = '9999';
-            debugButton.style.padding = '5px 10px';
-            debugButton.style.backgroundColor = '#333';
-            debugButton.style.color = '#fff';
-            debugButton.style.border = 'none';
-            debugButton.style.borderRadius = '4px';
-            debugButton.style.cursor = 'pointer';
-            debugButton.style.opacity = '0.7';
-
-            debugButton.addEventListener('click', () => {
-                console.clear();
-                console.log('Refreshing leaderboard data...');
-
-                // Try with specific timestamps
-                fetchLeaderboardWithTimestamp('rain_gg', rainggTimestamp)
-                    .then(success => {
-                        if (!success) fetchRainGGLeaderboard();
-                    });
-
-                fetchLeaderboardWithTimestamp('diceblox', dicebloxTimestamp)
-                    .then(success => {
-                        if (!success) fetchDicebloxLeaderboard();
-                    });
-            });
-
-            document.body.appendChild(debugButton);
         });
     </script>
 
