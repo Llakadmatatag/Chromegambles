@@ -600,109 +600,160 @@
             try {
                 console.log('Fetching RAINGG leaderboard...');
 
-                // Get the latest timestamp document
-                const latestDoc = await db.collection('rain_gg')
-                    .orderBy('timestamp', 'desc')
-                    .limit(1)
-                    .get()
-                    .catch(err => {
-                        console.error('Error getting latest RAINGG document:', err);
-                        // Try with __name__ as fallback
-                        return db.collection('rain_gg')
-                            .orderBy('__name__', 'desc')
-                            .limit(1)
-                            .get();
-                    });
+                // Try multiple approaches to get the data
+                let rankings = [];
 
-                if (!latestDoc.empty) {
-                    const doc = latestDoc.docs[0];
-                    console.log('Latest RAINGG document:', doc.id);
+                // Approach 1: Get the latest document with timestamp
+                try {
+                    console.log('Approach 1: Getting latest document with timestamp...');
+                    const latestDoc = await db.collection('rain_gg')
+                        .orderBy('timestamp', 'desc')
+                        .limit(1)
+                        .get();
 
-                    // Get rankings collection
-                    const rankingsSnapshot = await doc.ref.collection('rankings')
-                        .get()
-                        .catch(err => {
-                            console.error('Error getting RAINGG rankings collection:', err);
-                            return { empty: true };
-                        });
+                    if (!latestDoc.empty) {
+                        const doc = latestDoc.docs[0];
+                        console.log('Latest RAINGG document:', doc.id);
 
-                    if (!rankingsSnapshot.empty) {
-                        console.log('Found RAINGG rankings collection with', rankingsSnapshot.size, 'documents');
+                        // Check if document has rankings field directly
+                        const docData = doc.data();
+                        if (docData && docData.rankings) {
+                            console.log('Document has rankings field directly');
 
-                        // Convert to array
-                        const rankings = [];
-                        rankingsSnapshot.forEach(rankDoc => {
-                            const data = rankDoc.data();
-                            console.log('RAINGG rank data:', rankDoc.id, data);
-
-                            // Make sure we have the required fields
-                            if (data && data.username && data.wagered !== undefined) {
-                                rankings.push({
-                                    rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
-                                    username: data.username,
-                                    wagered: data.wagered
-                                });
-                            }
-                        });
-
-                        if (rankings.length > 0) {
-                            // Sort by wagered (descending)
-                            rankings.sort((a, b) => b.wagered - a.wagered);
-
-                            // Assign ranks based on sorted order
-                            rankings.forEach((item, index) => {
-                                item.rank = index + 1;
+                            // Convert rankings map to array
+                            Object.entries(docData.rankings).forEach(([key, data]) => {
+                                if (data && data.username && data.wagered !== undefined) {
+                                    rankings.push({
+                                        rank: data.rank || parseInt(key) || rankings.length + 1,
+                                        username: data.username,
+                                        wagered: data.wagered
+                                    });
+                                }
                             });
-
-                            console.log('RAINGG Rankings:', rankings);
-                            updateRainGGLeaderboard(rankings);
                         } else {
-                            console.warn('No valid RAINGG rankings found');
-                        }
-                    } else {
-                        console.warn('RAINGG rankings collection is empty');
+                            // Try to get rankings subcollection
+                            console.log('Trying to get rankings subcollection...');
+                            const rankingsSnapshot = await doc.ref.collection('rankings').get();
 
-                        // Try alternative approach - get individual documents
-                        console.log('Trying alternative approach for RAINGG...');
-                        const rankings = [];
+                            if (!rankingsSnapshot.empty) {
+                                console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
 
-                        for (let i = 0; i < 10; i++) {
-                            try {
-                                const rankDoc = await doc.ref.collection('rankings').doc(i.toString()).get();
-                                if (rankDoc.exists) {
+                                rankingsSnapshot.forEach(rankDoc => {
                                     const data = rankDoc.data();
-                                    console.log('RAINGG rank data (alt):', i, data);
+                                    console.log('RAINGG rank data:', rankDoc.id, data);
 
                                     if (data && data.username && data.wagered !== undefined) {
                                         rankings.push({
-                                            rank: data.rank || i + 1,
+                                            rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
                                             username: data.username,
                                             wagered: data.wagered
                                         });
                                     }
-                                }
-                            } catch (err) {
-                                console.error('Error getting RAINGG rank', i, ':', err);
+                                });
                             }
                         }
-
-                        if (rankings.length > 0) {
-                            // Sort by wagered (descending)
-                            rankings.sort((a, b) => b.wagered - a.wagered);
-
-                            // Assign ranks based on sorted order
-                            rankings.forEach((item, index) => {
-                                item.rank = index + 1;
-                            });
-
-                            console.log('RAINGG Rankings (alt):', rankings);
-                            updateRainGGLeaderboard(rankings);
-                        } else {
-                            console.warn('No valid RAINGG rankings found with alternative approach');
-                        }
                     }
+                } catch (err) {
+                    console.error('Error in approach 1:', err);
+                }
+
+                // Approach 2: Try to get all documents and use the most recent one
+                if (rankings.length === 0) {
+                    try {
+                        console.log('Approach 2: Getting all documents...');
+                        const allDocs = await db.collection('rain_gg').get();
+
+                        if (!allDocs.empty) {
+                            console.log('Found', allDocs.size, 'documents in rain_gg collection');
+
+                            // Use the first document
+                            const doc = allDocs.docs[0];
+                            console.log('Using document:', doc.id);
+
+                            // Check if document has rankings field directly
+                            const docData = doc.data();
+                            if (docData && docData.rankings) {
+                                console.log('Document has rankings field directly');
+
+                                // Convert rankings map to array
+                                Object.entries(docData.rankings).forEach(([key, data]) => {
+                                    if (data && data.username && data.wagered !== undefined) {
+                                        rankings.push({
+                                            rank: data.rank || parseInt(key) || rankings.length + 1,
+                                            username: data.username,
+                                            wagered: data.wagered
+                                        });
+                                    }
+                                });
+                            } else {
+                                // Try to get rankings subcollection
+                                console.log('Trying to get rankings subcollection...');
+                                const rankingsSnapshot = await doc.ref.collection('rankings').get();
+
+                                if (!rankingsSnapshot.empty) {
+                                    console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
+
+                                    rankingsSnapshot.forEach(rankDoc => {
+                                        const data = rankDoc.data();
+                                        console.log('RAINGG rank data:', rankDoc.id, data);
+
+                                        if (data && data.username && data.wagered !== undefined) {
+                                            rankings.push({
+                                                rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
+                                                username: data.username,
+                                                wagered: data.wagered
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error in approach 2:', err);
+                    }
+                }
+
+                // Approach 3: Try to get rankings collection directly
+                if (rankings.length === 0) {
+                    try {
+                        console.log('Approach 3: Getting rankings collection directly...');
+                        const rankingsSnapshot = await db.collection('rain_gg_rankings').get();
+
+                        if (!rankingsSnapshot.empty) {
+                            console.log('Found rain_gg_rankings collection with', rankingsSnapshot.size, 'documents');
+
+                            rankingsSnapshot.forEach(rankDoc => {
+                                const data = rankDoc.data();
+                                console.log('RAINGG rank data:', rankDoc.id, data);
+
+                                if (data && data.username && data.wagered !== undefined) {
+                                    rankings.push({
+                                        rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
+                                        username: data.username,
+                                        wagered: data.wagered
+                                    });
+                                }
+                            });
+                        }
+                    } catch (err) {
+                        console.error('Error in approach 3:', err);
+                    }
+                }
+
+                // Process and update the UI with the rankings
+                if (rankings.length > 0) {
+                    // Sort by wagered (descending)
+                    rankings.sort((a, b) => b.wagered - a.wagered);
+
+                    // Assign ranks based on sorted order
+                    rankings.forEach((item, index) => {
+                        item.rank = index + 1;
+                    });
+
+                    console.log('Final RAINGG Rankings:', rankings);
+                    updateRainGGLeaderboard(rankings);
                 } else {
-                    console.warn('No RAINGG documents found');
+                    console.warn('No RAINGG rankings found with any approach');
                 }
             } catch (error) {
                 console.error('Error fetching RAINGG leaderboard:', error);
@@ -713,109 +764,160 @@
             try {
                 console.log('Fetching DICEBLOX leaderboard...');
 
-                // Get the latest timestamp document
-                const latestDoc = await db.collection('diceblox')
-                    .orderBy('timestamp', 'desc')
-                    .limit(1)
-                    .get()
-                    .catch(err => {
-                        console.error('Error getting latest DICEBLOX document:', err);
-                        // Try with __name__ as fallback
-                        return db.collection('diceblox')
-                            .orderBy('__name__', 'desc')
-                            .limit(1)
-                            .get();
-                    });
+                // Try multiple approaches to get the data
+                let rankings = [];
 
-                if (!latestDoc.empty) {
-                    const doc = latestDoc.docs[0];
-                    console.log('Latest DICEBLOX document:', doc.id);
+                // Approach 1: Get the latest document with timestamp
+                try {
+                    console.log('Approach 1: Getting latest document with timestamp...');
+                    const latestDoc = await db.collection('diceblox')
+                        .orderBy('timestamp', 'desc')
+                        .limit(1)
+                        .get();
 
-                    // Get rankings collection
-                    const rankingsSnapshot = await doc.ref.collection('rankings')
-                        .get()
-                        .catch(err => {
-                            console.error('Error getting DICEBLOX rankings collection:', err);
-                            return { empty: true };
-                        });
+                    if (!latestDoc.empty) {
+                        const doc = latestDoc.docs[0];
+                        console.log('Latest DICEBLOX document:', doc.id);
 
-                    if (!rankingsSnapshot.empty) {
-                        console.log('Found DICEBLOX rankings collection with', rankingsSnapshot.size, 'documents');
+                        // Check if document has rankings field directly
+                        const docData = doc.data();
+                        if (docData && docData.rankings) {
+                            console.log('Document has rankings field directly');
 
-                        // Convert to array
-                        const rankings = [];
-                        rankingsSnapshot.forEach(rankDoc => {
-                            const data = rankDoc.data();
-                            console.log('DICEBLOX rank data:', rankDoc.id, data);
-
-                            // Make sure we have the required fields
-                            if (data && data.username && data.wagered !== undefined) {
-                                rankings.push({
-                                    rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
-                                    username: data.username,
-                                    wagered: data.wagered
-                                });
-                            }
-                        });
-
-                        if (rankings.length > 0) {
-                            // Sort by wagered (descending)
-                            rankings.sort((a, b) => b.wagered - a.wagered);
-
-                            // Assign ranks based on sorted order
-                            rankings.forEach((item, index) => {
-                                item.rank = index + 1;
+                            // Convert rankings map to array
+                            Object.entries(docData.rankings).forEach(([key, data]) => {
+                                if (data && data.username && data.wagered !== undefined) {
+                                    rankings.push({
+                                        rank: data.rank || parseInt(key) || rankings.length + 1,
+                                        username: data.username,
+                                        wagered: data.wagered
+                                    });
+                                }
                             });
-
-                            console.log('DICEBLOX Rankings:', rankings);
-                            updateDicebloxLeaderboard(rankings);
                         } else {
-                            console.warn('No valid DICEBLOX rankings found');
-                        }
-                    } else {
-                        console.warn('DICEBLOX rankings collection is empty');
+                            // Try to get rankings subcollection
+                            console.log('Trying to get rankings subcollection...');
+                            const rankingsSnapshot = await doc.ref.collection('rankings').get();
 
-                        // Try alternative approach - get individual documents
-                        console.log('Trying alternative approach for DICEBLOX...');
-                        const rankings = [];
+                            if (!rankingsSnapshot.empty) {
+                                console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
 
-                        for (let i = 0; i < 10; i++) {
-                            try {
-                                const rankDoc = await doc.ref.collection('rankings').doc(i.toString()).get();
-                                if (rankDoc.exists) {
+                                rankingsSnapshot.forEach(rankDoc => {
                                     const data = rankDoc.data();
-                                    console.log('DICEBLOX rank data (alt):', i, data);
+                                    console.log('DICEBLOX rank data:', rankDoc.id, data);
 
                                     if (data && data.username && data.wagered !== undefined) {
                                         rankings.push({
-                                            rank: data.rank || i + 1,
+                                            rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
                                             username: data.username,
                                             wagered: data.wagered
                                         });
                                     }
-                                }
-                            } catch (err) {
-                                console.error('Error getting DICEBLOX rank', i, ':', err);
+                                });
                             }
                         }
-
-                        if (rankings.length > 0) {
-                            // Sort by wagered (descending)
-                            rankings.sort((a, b) => b.wagered - a.wagered);
-
-                            // Assign ranks based on sorted order
-                            rankings.forEach((item, index) => {
-                                item.rank = index + 1;
-                            });
-
-                            console.log('DICEBLOX Rankings (alt):', rankings);
-                            updateDicebloxLeaderboard(rankings);
-                        } else {
-                            console.warn('No valid DICEBLOX rankings found with alternative approach');
-                        }
                     }
+                } catch (err) {
+                    console.error('Error in approach 1:', err);
+                }
+
+                // Approach 2: Try to get all documents and use the most recent one
+                if (rankings.length === 0) {
+                    try {
+                        console.log('Approach 2: Getting all documents...');
+                        const allDocs = await db.collection('diceblox').get();
+
+                        if (!allDocs.empty) {
+                            console.log('Found', allDocs.size, 'documents in diceblox collection');
+
+                            // Use the first document
+                            const doc = allDocs.docs[0];
+                            console.log('Using document:', doc.id);
+
+                            // Check if document has rankings field directly
+                            const docData = doc.data();
+                            if (docData && docData.rankings) {
+                                console.log('Document has rankings field directly');
+
+                                // Convert rankings map to array
+                                Object.entries(docData.rankings).forEach(([key, data]) => {
+                                    if (data && data.username && data.wagered !== undefined) {
+                                        rankings.push({
+                                            rank: data.rank || parseInt(key) || rankings.length + 1,
+                                            username: data.username,
+                                            wagered: data.wagered
+                                        });
+                                    }
+                                });
+                            } else {
+                                // Try to get rankings subcollection
+                                console.log('Trying to get rankings subcollection...');
+                                const rankingsSnapshot = await doc.ref.collection('rankings').get();
+
+                                if (!rankingsSnapshot.empty) {
+                                    console.log('Found rankings subcollection with', rankingsSnapshot.size, 'documents');
+
+                                    rankingsSnapshot.forEach(rankDoc => {
+                                        const data = rankDoc.data();
+                                        console.log('DICEBLOX rank data:', rankDoc.id, data);
+
+                                        if (data && data.username && data.wagered !== undefined) {
+                                            rankings.push({
+                                                rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
+                                                username: data.username,
+                                                wagered: data.wagered
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error in approach 2:', err);
+                    }
+                }
+
+                // Approach 3: Try to get rankings collection directly
+                if (rankings.length === 0) {
+                    try {
+                        console.log('Approach 3: Getting rankings collection directly...');
+                        const rankingsSnapshot = await db.collection('diceblox_rankings').get();
+
+                        if (!rankingsSnapshot.empty) {
+                            console.log('Found diceblox_rankings collection with', rankingsSnapshot.size, 'documents');
+
+                            rankingsSnapshot.forEach(rankDoc => {
+                                const data = rankDoc.data();
+                                console.log('DICEBLOX rank data:', rankDoc.id, data);
+
+                                if (data && data.username && data.wagered !== undefined) {
+                                    rankings.push({
+                                        rank: data.rank || parseInt(rankDoc.id) || rankings.length + 1,
+                                        username: data.username,
+                                        wagered: data.wagered
+                                    });
+                                }
+                            });
+                        }
+                    } catch (err) {
+                        console.error('Error in approach 3:', err);
+                    }
+                }
+
+                // Process and update the UI with the rankings
+                if (rankings.length > 0) {
+                    // Sort by wagered (descending)
+                    rankings.sort((a, b) => b.wagered - a.wagered);
+
+                    // Assign ranks based on sorted order
+                    rankings.forEach((item, index) => {
+                        item.rank = index + 1;
+                    });
+
+                    console.log('Final DICEBLOX Rankings:', rankings);
+                    updateDicebloxLeaderboard(rankings);
                 } else {
-                    console.warn('No DICEBLOX documents found');
+                    console.warn('No DICEBLOX rankings found with any approach');
                 }
             } catch (error) {
                 console.error('Error fetching DICEBLOX leaderboard:', error);
@@ -1980,6 +2082,16 @@
             const copyrightYear = document.querySelector('.footer-bottom p');
             if (copyrightYear) {
                 copyrightYear.innerHTML = copyrightYear.innerHTML.replace(/\d{4}/, currentYear);
+            }
+
+            // Load leaderboard data
+            console.log('Loading leaderboard data...');
+            try {
+                // Fetch leaderboard data
+                fetchRainGGLeaderboard();
+                fetchDicebloxLeaderboard();
+            } catch (error) {
+                console.error('Error loading leaderboard data:', error);
             }
         });
     </script>
