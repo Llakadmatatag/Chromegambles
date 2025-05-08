@@ -297,9 +297,13 @@
         .leaderboard-table .wagered {
             color: var(--primary-color);
             font-weight: 600;
-            text-align: right; /* Right-align wagered values */
-            padding-right: 20px; /* Add padding to the right to create space between wagered and prize */
+            text-align: left; /* Change to left-align to match header */
             min-width: 120px; /* Set minimum width for wagered column */
+        }
+
+        /* Style for wagered column header */
+        .leaderboard-table th:nth-child(3) {
+            text-align: left; /* Ensure header is also left-aligned */
         }
 
         .leaderboard-table .prize {
