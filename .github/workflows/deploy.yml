@@ -3,16 +3,17 @@ name: Build and Deploy
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        persist-credentials: false
 
     - name: Generate Firebase Config
       run: |
@@ -58,10 +59,8 @@ jobs:
         find ./js -name "*.js" -not -name "firebase-config.js" -type f -exec terser -c -m -o {} {} \;
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        folder: .
-        branch: gh-pages
-        token: ${{ secrets.GITHUB_TOKEN }}
-        clean: true
-        single-commit: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        force_orphan: true
