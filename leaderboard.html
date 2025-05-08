@@ -894,9 +894,9 @@
                             const wageredEl = firstPlace.querySelector('.wagered');
 
                             if (usernameEl) usernameEl.textContent = rankings[0].username;
-                            // Format the number with commas and add 'coins'
+                            // Format the number with decimals and add 'coins'
                             if (wageredEl) {
-                                const formattedWagered = formatNumber(rankings[0].wagered);
+                                const formattedWagered = formatNumberWithDecimals(rankings[0].wagered);
                                 wageredEl.textContent = formattedWagered + ' coins';
                             }
                         }
@@ -913,9 +913,9 @@
                             const wageredEl = secondPlace.querySelector('.wagered');
 
                             if (usernameEl) usernameEl.textContent = rankings[1].username;
-                            // Format the number with commas and add 'coins'
+                            // Format the number with decimals and add 'coins'
                             if (wageredEl) {
-                                const formattedWagered = formatNumber(rankings[1].wagered);
+                                const formattedWagered = formatNumberWithDecimals(rankings[1].wagered);
                                 wageredEl.textContent = formattedWagered + ' coins';
                             }
                         }
@@ -932,9 +932,9 @@
                             const wageredEl = thirdPlace.querySelector('.wagered');
 
                             if (usernameEl) usernameEl.textContent = rankings[2].username;
-                            // Format the number with commas and add 'coins'
+                            // Format the number with decimals and add 'coins'
                             if (wageredEl) {
-                                const formattedWagered = formatNumber(rankings[2].wagered);
+                                const formattedWagered = formatNumberWithDecimals(rankings[2].wagered);
                                 wageredEl.textContent = formattedWagered + ' coins';
                             }
                         }
@@ -957,9 +957,9 @@
                                     const wageredEl = row.querySelector('.wagered');
 
                                     if (usernameEl) usernameEl.textContent = rankings[i].username;
-                                    // Format the number with commas and add 'coins'
+                                    // Format the number with decimals and add 'coins'
                                     if (wageredEl) {
-                                        const formattedWagered = formatNumber(rankings[i].wagered);
+                                        const formattedWagered = formatNumberWithDecimals(rankings[i].wagered);
                                         wageredEl.textContent = formattedWagered + ' coins';
                                     }
                                 }
@@ -1104,6 +1104,37 @@
                 return numValue.toLocaleString('en-US', {
                     maximumFractionDigits: 0,
                     minimumFractionDigits: 0
+                });
+            }
+        }
+
+        // Helper function to format numbers with decimals for RAINGG
+        function formatNumberWithDecimals(num) {
+            if (num === undefined || num === null) return '0.00';
+
+            // Make sure num is treated as a number
+            let numValue = Number(num);
+            if (isNaN(numValue)) return '0.00';
+
+            // Format with commas for thousands separator and 2 decimal places
+            // For mobile optimization, abbreviate large numbers
+            if (window.innerWidth <= 576 && numValue >= 1000000) {
+                // For values >= 1M, show as 1.2M
+                return (numValue / 1000000).toLocaleString('en-US', {
+                    maximumFractionDigits: 1,
+                    minimumFractionDigits: 1
+                }) + 'M';
+            } else if (window.innerWidth <= 576 && numValue >= 1000) {
+                // For values >= 1K, show as 1.2K
+                return (numValue / 1000).toLocaleString('en-US', {
+                    maximumFractionDigits: 1,
+                    minimumFractionDigits: 1
+                }) + 'K';
+            } else {
+                // Regular formatting for larger screens or smaller numbers
+                return numValue.toLocaleString('en-US', {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
                 });
             }
         }
@@ -1427,8 +1458,8 @@
                             // Extract the numeric value
                             const value = el.textContent.replace(/[^0-9.]/g, '');
                             if (value && !isNaN(value)) {
-                                // Reformat with current screen size
-                                const formattedValue = formatNumber(Number(value));
+                                // Reformat with current screen size (with decimals for RAINGG)
+                                const formattedValue = formatNumberWithDecimals(Number(value));
                                 el.textContent = formattedValue + ' coins';
                             }
                         });
