@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /js/firebase-config.js
+Disallow: /.github/
+Disallow: /.htaccess
+Disallow: /web.config
+Disallow: /_headers
+
+# Sitemap
+Sitemap: https://chromegambles.com/sitemap.xml
