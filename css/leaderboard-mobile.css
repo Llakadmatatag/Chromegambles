@@ -1,0 +1,278 @@
+/* Mobile Responsive Improvements for Leaderboard Page */
+
+/* General Mobile Adjustments */
+@media (max-width: 768px) {
+    /* Leaderboard Hero Section */
+    .leaderboard-hero {
+        padding: 3rem 5%;
+    }
+
+    .leaderboard-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .leaderboard-hero p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    /* Tabs Navigation */
+    .tabs {
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Countdown Timer */
+    .countdown-timer {
+        margin-bottom: 2rem;
+    }
+
+    .countdown-label {
+        font-size: 1rem;
+    }
+
+    .countdown-display {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .countdown-item {
+        min-width: 70px;
+        padding: 0.8rem;
+    }
+
+    .countdown-item .days,
+    .countdown-item .hours,
+    .countdown-item .minutes,
+    .countdown-item .seconds {
+        font-size: 1.5rem;
+    }
+
+    /* Podium Styling */
+    .podium-container {
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .podium-item {
+        width: 140px;
+    }
+
+    .crown {
+        top: -20px;
+        font-size: 1.2rem;
+    }
+
+    .username {
+        font-size: 1rem;
+    }
+
+    .wagered, .prize {
+        font-size: 0.9rem;
+    }
+
+    .podium-block {
+        padding: 0.8rem 0;
+        font-size: 1.2rem;
+    }
+
+    /* Table Styling */
+    .leaderboard-table-container {
+        margin-bottom: 1.5rem;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .leaderboard-table {
+        font-size: 0.9rem;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.8rem 0.5rem;
+    }
+
+    .leaderboard-table .rank {
+        width: 40px;
+    }
+
+    /* Left-align wagered values */
+    .leaderboard-table .wagered {
+        text-align: left;
+        min-width: 100px; /* Slightly smaller min-width on mobile */
+    }
+
+    /* Center-align prize values */
+    .leaderboard-table .prize {
+        text-align: center;
+        min-width: 60px; /* Slightly smaller min-width on mobile */
+    }
+
+    /* Sponsor Information */
+    .sponsor-title {
+        font-size: 1.8rem;
+    }
+
+    .sponsor-description {
+        font-size: 1rem;
+    }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 576px) {
+    /* Leaderboard Hero Section */
+    .leaderboard-hero {
+        padding: 2rem 5%;
+    }
+
+    .leaderboard-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    /* Tabs Navigation */
+    .tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        width: 100%;
+        max-width: 250px;
+        padding: 0.7rem 1rem;
+    }
+
+    /* Countdown Timer */
+    .countdown-display {
+        gap: 0.5rem;
+    }
+
+    .countdown-item {
+        min-width: 60px;
+        padding: 0.6rem;
+    }
+
+    .countdown-item .days,
+    .countdown-item .hours,
+    .countdown-item .minutes,
+    .countdown-item .seconds {
+        font-size: 1.2rem;
+    }
+
+    .countdown-item .label {
+        font-size: 0.7rem;
+    }
+
+    /* Podium Styling - Vertical Layout */
+    .podium-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .podium-item {
+        width: 200px; /* Larger on mobile for better visibility */
+    }
+
+    /* Reorder podium items */
+    .first-place {
+        order: 1;
+    }
+
+    .second-place {
+        order: 2;
+    }
+
+    .third-place {
+        order: 3;
+    }
+
+    /* Make all podium blocks the same height */
+    .first-place .podium-block,
+    .second-place .podium-block,
+    .third-place .podium-block {
+        height: 50px !important;
+    }
+
+    /* Table Styling - Compact for Mobile */
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    /* Adjust wagered and prize columns for small screens */
+    .leaderboard-table .wagered {
+        min-width: 80px;
+    }
+
+    .leaderboard-table .prize {
+        min-width: 50px;
+    }
+
+    /* Sponsor Information */
+    .sponsor-title {
+        font-size: 1.5rem;
+    }
+
+    .sponsor-description {
+        font-size: 0.9rem;
+    }
+
+    /* How to Climb Section */
+    .how-to-climb h3 {
+        font-size: 1.5rem;
+    }
+
+    .how-to-climb p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra Small Mobile Adjustments */
+@media (max-width: 375px) {
+    .leaderboard-hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .countdown-item {
+        min-width: 55px;
+        padding: 0.5rem;
+    }
+
+    .countdown-item .days,
+    .countdown-item .hours,
+    .countdown-item .minutes,
+    .countdown-item .seconds {
+        font-size: 1rem;
+    }
+
+    .podium-item {
+        width: 180px;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.8rem;
+    }
+
+    /* Further adjust wagered and prize columns for extra small screens */
+    .leaderboard-table .wagered {
+        min-width: 70px;
+    }
+
+    .leaderboard-table .prize {
+        min-width: 40px;
+    }
+
+    .sponsor-title {
+        font-size: 1.3rem;
+    }
+}

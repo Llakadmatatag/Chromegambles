@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giveaways - ChromeGambles</title>
+    <link rel="icon" type="image/png" href="assets/images-optimized/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles specific to giveaways page */
+        .giveaways-hero {
+            background: transparent;
+            padding: 5rem 5%;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .giveaways-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .giveaways-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+
+
+        .giveaways-container {
+            padding: 5rem 5%;
+        }
+
+        .giveaways-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .giveaway-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .giveaway-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .giveaway-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .giveaway-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .giveaway-card:hover .giveaway-image img {
+            transform: scale(1.1);
+        }
+
+        .giveaway-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .active-giveaway {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .upcoming-giveaway {
+            background-color: var(--warning-color);
+            color: var(--dark-color);
+        }
+
+        .ended-giveaway {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .giveaway-info {
+            padding: 1.5rem;
+        }
+
+        .giveaway-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .giveaway-info p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .giveaway-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .giveaway-meta div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .giveaway-meta i {
+            color: var(--primary-color);
+        }
+
+        .prize-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timer-box {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .timer-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .timer-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .how-to-participate {
+            background-color: #f5f5f5; /* Light gray background */
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .how-to-participate h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .step-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .step-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon-container {
+            padding: 5rem 5%;
+            text-align: center;
+            background-color: transparent;
+            margin: 2rem 0;
+        }
+
+        .coming-soon-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            background-color: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 168, 107, 0.1), rgba(0, 0, 0, 0));
+            z-index: -1;
+        }
+
+        .coming-soon-content i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .coming-soon-content h2 {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .coming-soon-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .coming-soon-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .coming-soon-content .good-luck {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1><img src="assets/images-optimized/favicon.png" alt="ChromeGambles Logo"> <span class="chrome">CHROME</span><span class="gambles">GAMBLES</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="partnerships.html"><i class="fas fa-handshake"></i> Partnerships</a></li>
+                <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> Featured Leaderboard</a></li>
+                <li><a href="giveaways.html" class="active"><i class="fas fa-gift"></i> Giveaways</a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+            </ul>
+            <a href="#" class="login-btn"><i class="fab fa-discord"></i> Login</a>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="giveaways-hero">
+            <img src="assets/images-optimized/giveaway1.png" alt="Giveaways Image 1" class="giveaways-hero-img giveaways-hero-img-left">
+            <img src="assets/images-optimized/giveaway2.png" alt="Giveaways Image 2" class="giveaways-hero-img giveaways-hero-img-right">
+            <div class="floating-coins">
+                <!-- Coins will be added via JavaScript -->
+            </div>
+            <h1><span class="our-text">Exclusive</span> <span class="giveaways-text">Giveaways</span></h1>
+            <p>Participate in our exciting giveaways and win amazing prizes including cash, gaming equipment, and exclusive merchandise.</p>
+        </section>
+
+        <section class="coming-soon-container">
+            <div class="coming-soon-content">
+                <i class="fas fa-tools"></i>
+                <h2>Coming Soon</h2>
+                <p>We are building a fair giveaway system for all members to prevent giveaway farming and cheating in our giveaways and events.</p>
+                <p>Make sure to keep an eye on our progress so you don't miss out.</p>
+                <p class="good-luck">Good luck!!!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <h2><img src="assets/images-optimized/favicon.png" alt="ChromeGambles Logo"> <span class="chrome">CHROME</span><span class="gambles">GAMBLES</span></h2>
+                    <p>Your premier gambling community</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="https://discord.gg/Pu8KavQm" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+                    <a href="https://kick.com/chromegambles" target="_blank" rel="noopener noreferrer" class="kick-icon"><img src="assets/images-optimized/kick-icon.png" alt="Kick.com"></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="partnerships.html">Partnerships</a></li>
+                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="community.html">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+                <div class="responsible-badge">
+                    <img src="assets/images-optimized/18plus.png" alt="18+ Responsible Gambling">
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Credits</h3>
+                <p>This site is designed and maintained by: <a href="https://x.com/Llakadmatatag" target="_blank" rel="noopener noreferrer" class="credit-link">@Llakadmatatag</a></p>
+                <p>Powered by <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="vscode-logo">VS Code</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 <img src="assets/images-optimized/favicon.png" alt="ChromeGambles Logo"> <span class="chrome">CHROME</span><span class="gambles">GAMBLES</span>. All rights reserved.</p>
+            <p>18+ Gamble Responsibly</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
