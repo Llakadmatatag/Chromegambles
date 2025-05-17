@@ -69,6 +69,8 @@ async function updateLeaderboard() {
                 if (wageredElement) {
                     wageredElement.textContent = `${formatNumber(player.wagered)} coins`;
                 }
+            } else {
+                console.error(`Podium item with position ${position} not found`);
             }
         });
 
