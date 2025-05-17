@@ -41,12 +41,14 @@ async function updateLeaderboard() {
         // Process rankings data (0-9)
         for (let i = 0; i < 10; i++) {
             const rankData = rankings[i];
-            if (rankData && rankData.username && rankData.wagered !== undefined) {
+            if (rankData && typeof rankData === 'object' && rankData.username && rankData.wagered !== undefined) {
                 players.push({
                     rank: i,
                     username: rankData.username,
                     wagered: rankData.wagered
                 });
+            } else {
+                console.warn(`Rank data at index ${i} is missing or invalid:`, rankData);
             }
         }
 
