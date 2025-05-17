@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CHROMEGAMBLES - Under Maintenance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100%;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        body {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        /* Card symbols background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path fill="%23111" d="M10,10 L15,5 L20,10 L15,15 Z M30,10 L35,5 L40,10 L35,15 Z M10,30 L15,25 L20,30 L15,35 Z M30,30 L35,25 L40,30 L35,35 Z"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path fill="%23111" d="M25,10 C20,10 20,15 25,20 C30,15 30,10 25,10 Z M25,30 C20,30 20,35 25,40 C30,35 30,30 25,30 Z"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path fill="%23111" d="M25,5 L20,15 L30,15 Z M25,35 L20,25 L30,25 Z"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path fill="%23111" d="M25,10 C22,15 20,20 25,25 C30,20 28,15 25,10 Z M25,40 C28,35 30,30 25,25 C20,30 22,35 25,40 Z"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+            z-index: -1;
+            transform: rotate(15deg);
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(15, 15, 15, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
+            overflow-y: visible;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .maintenance-info {
+            width: 100%;
+            text-align: center;
+        }
+
+        .game-section {
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (min-width: 1025px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+
+            .maintenance-info, .game-section {
+                flex: 1;
+            }
+        }
+
+        .game-title {
+            color: #00E676;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .logo h1 .chrome {
+            color: #ffffff;
+        }
+
+        .logo h1 .gambles {
+            color: #00E676;
+        }
+
+        .construction-scene {
+            position: relative;
+            height: 200px;
+            margin: 30px auto;
+            width: 280px;
+        }
+
+        .building {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 160px;
+            background-color: #1a1a1a;
+            border: 2px solid #333;
+            overflow: hidden;
+        }
+
+        .floor {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background-color: #222;
+            border-top: 1px solid #444;
+            left: 0;
+            opacity: 0;
+            animation: build-floor 4s ease-in-out infinite;
+        }
+
+        .floor-1 { bottom: 0; animation-delay: 0s; }
+        .floor-2 { bottom: 20px; animation-delay: 0.5s; }
+        .floor-3 { bottom: 40px; animation-delay: 1s; }
+        .floor-4 { bottom: 60px; animation-delay: 1.5s; }
+        .floor-5 { bottom: 80px; animation-delay: 2s; }
+        .floor-6 { bottom: 100px; animation-delay: 2.5s; }
+        .floor-7 { bottom: 120px; animation-delay: 3s; }
+        .floor-8 { bottom: 140px; animation-delay: 3.5s; }
+
+        .window {
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background-color: rgba(0, 230, 118, 0.2);
+            border: 1px solid #00E676;
+        }
+
+        .crane {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 10px;
+            height: 180px;
+            background-color: #333;
+            transform-origin: bottom center;
+            animation: crane-sway 5s ease-in-out infinite;
+        }
+
+        .crane-arm {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100px;
+            height: 8px;
+            background-color: #333;
+            transform-origin: left center;
+        }
+
+        .crane-cable {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            width: 2px;
+            height: 40px;
+            background-color: #666;
+            animation: crane-cable 5s ease-in-out infinite;
+        }
+
+        .crane-load {
+            position: absolute;
+            bottom: 0;
+            right: -9px;
+            width: 20px;
+            height: 15px;
+            background-color: #00E676;
+            animation: crane-load 5s ease-in-out infinite;
+        }
+
+        .worker {
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background-color: #555;
+            border-radius: 50% 50% 0 0;
+            animation: worker-move 8s linear infinite;
+        }
+
+        .worker-1 {
+            bottom: 0;
+            left: 20px;
+            animation-delay: 0s;
+        }
+
+        .worker-2 {
+            bottom: 40px;
+            right: 30px;
+            animation-delay: 2s;
+        }
+
+        .scaffold {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 20px;
+            height: 160px;
+            border-left: 3px solid #888;
+            border-right: 3px solid #888;
+        }
+
+        .scaffold-plank {
+            position: absolute;
+            left: 0;
+            width: 20px;
+            height: 3px;
+            background-color: #888;
+        }
+
+        .dust {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: dust-float 3s ease-out infinite;
+            opacity: 0;
+        }
+
+        .dust-1 { bottom: 20px; left: 30px; animation-delay: 0.2s; }
+        .dust-2 { bottom: 40px; left: 70px; animation-delay: 1.2s; }
+        .dust-3 { bottom: 60px; left: 40px; animation-delay: 2.2s; }
+        .dust-4 { bottom: 80px; left: 60px; animation-delay: 0.7s; }
+        .dust-5 { bottom: 100px; left: 50px; animation-delay: 1.7s; }
+
+        @keyframes build-floor {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes crane-sway {
+            0% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+            100% { transform: rotate(-2deg); }
+        }
+
+        @keyframes crane-cable {
+            0% { height: 30px; }
+            50% { height: 50px; }
+            100% { height: 30px; }
+        }
+
+        @keyframes crane-load {
+            0% { bottom: 0; }
+            50% { bottom: 20px; }
+            100% { bottom: 0; }
+        }
+
+        @keyframes worker-move {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(30px); }
+            50% { transform: translateX(60px); }
+            75% { transform: translateX(30px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes dust-float {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-20px); opacity: 0; }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #cccccc;
+        }
+
+        .highlight {
+            color: #00E676;
+            font-weight: 600;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 30px;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            margin: 30px 0;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, #00E676, #00C853);
+            border-radius: 5px;
+            animation: progress-animation 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progress-animation {
+            0% {
+                width: 65%;
+            }
+            100% {
+                width: 85%;
+            }
+        }
+
+        .estimated-time {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: rgba(0, 230, 118, 0.1);
+            border-radius: 5px;
+            display: inline-block;
+            border: 1px solid rgba(0, 230, 118, 0.2);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #777777;
+        }
+
+        /* Blackjack Game Styles */
+        .blackjack-container {
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            border: 1px solid #333;
+            max-width: 100%;
+            overflow: visible;
+        }
+
+        .blackjack-header {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .money-container, .bet-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .money-label, .bet-label {
+            color: #aaa;
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
+        .money-amount, .bet-amount {
+            color: #00E676;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .bet-controls {
+            display: flex;
+            justify-content: center;
+        }
+
+        .bet-btn {
+            background-color: #222;
+            color: white;
+            border: 1px solid #444;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            transition: all 0.2s;
+        }
+
+        .bet-btn:hover {
+            background-color: #333;
+            border-color: #00E676;
+        }
+
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dealer-area, .player-area {
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        .dealer-area h3, .player-area h3 {
+            margin-bottom: 8px;
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+
+        .dealer-score, .player-score {
+            color: #00E676;
+        }
+
+        .dealer-cards, .player-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            min-height: 70px;
+            justify-content: center;
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+
+        .card {
+            width: 40px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 3px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+            position: relative;
+            font-weight: bold;
+        }
+
+        .card.red {
+            color: #D32F2F;
+        }
+
+        .card.black {
+            color: #000;
+        }
+
+        .card.hidden {
+            background-color: #222;
+            background-image: linear-gradient(45deg, #333 25%, transparent 25%, transparent 50%, #333 50%, #333 75%, transparent 75%, transparent);
+            background-size: 10px 10px;
+            color: transparent;
+        }
+
+        .card-value {
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+        .card-suit {
+            font-size: 1rem;
+            line-height: 1;
+            align-self: center;
+        }
+
+        .card-value:last-child {
+            align-self: flex-end;
+            transform: rotate(180deg);
+        }
+
+        .game-message {
+            text-align: center;
+            min-height: 20px;
+            font-size: 0.9rem;
+            color: #00E676;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .game-btn {
+            background-color: #222;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid #444;
+        }
+
+        .game-btn:hover:not(:disabled) {
+            background-color: #333;
+            border-color: #00E676;
+        }
+
+        .game-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Desktop styles */
+        @media (min-width: 768px) {
+            .blackjack-container {
+                padding: 20px;
+            }
+
+            .blackjack-header {
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .money-container, .bet-container {
+                padding: 10px 15px;
+            }
+
+            .money-label, .bet-label {
+                font-size: 1rem;
+            }
+
+            .money-amount, .bet-amount {
+                font-size: 1.2rem;
+            }
+
+            .bet-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 1.2rem;
+            }
+
+            .game-area {
+                gap: 20px;
+            }
+
+            .dealer-area, .player-area {
+                padding: 15px;
+            }
+
+            .dealer-area h3, .player-area h3 {
+                margin-bottom: 10px;
+                font-size: 1.1rem;
+            }
+
+            .dealer-cards, .player-cards {
+                gap: 10px;
+                min-height: 100px;
+            }
+
+            .card {
+                width: 70px;
+                height: 100px;
+                padding: 5px;
+                border-radius: 5px;
+            }
+
+            .card-value {
+                font-size: 1.2rem;
+            }
+
+            .card-suit {
+                font-size: 1.5rem;
+            }
+
+            .game-message {
+                min-height: 30px;
+                font-size: 1.2rem;
+                margin: 10px 0;
+            }
+
+            .game-controls {
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .game-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 95%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                min-height: auto;
+                height: auto;
+            }
+
+            .container {
+                padding: 15px;
+                max-width: 100%;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .construction-scene {
+                width: 220px;
+                height: 160px;
+                transform: scale(0.85);
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            .progress-container {
+                height: 20px;
+                margin: 20px 0;
+            }
+
+            .estimated-time {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html, body {
+                height: auto;
+                overflow-y: auto;
+            }
+
+            body {
+                padding: 0;
+                display: block;
+            }
+
+            .container {
+                padding: 15px 10px;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+                margin: 0;
+            }
+
+            .logo-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .construction-scene {
+                width: 180px;
+                height: 140px;
+                transform: scale(0.75);
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            p {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+
+            .progress-container {
+                height: 15px;
+                margin: 15px 0;
+            }
+
+            .estimated-time {
+                font-size: 0.9rem;
+                padding: 8px;
+                margin: 15px 0;
+            }
+
+            .game-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            .content-wrapper {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Simplified skull with crown -->
+                    <path d="M20 5C14 5 10 10 10 15C10 18 12 21 15 23L13 28H27L25 23C28 21 30 18 30 15C30 10 26 5 20 5Z" fill="#FFD700"/>
+                    <path d="M20 8C15 8 12 12 12 16C12 19 14 22 17 23L15 27H25L23 23C26 22 28 19 28 16C28 12 25 8 20 8Z" fill="#111"/>
+                    <circle cx="16" cy="16" r="2" fill="#FFD700"/>
+                    <circle cx="24" cy="16" r="2" fill="#FFD700"/>
+                    <path d="M17 20H23C23 22 21 23 20 23C19 23 17 22 17 20Z" fill="#FFD700"/>
+                    <path d="M13 7L15 5H17L19 7L21 5H23L25 7L27 5H29L27 9H13L11 5H13L13 7Z" fill="#FFD700"/>
+                </svg>
+            </div>
+            <h1><span class="chrome">CHROME</span><span class="gambles">GAMBLES</span></h1>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="maintenance-info">
+                <div class="construction-scene">
+                    <!-- Building structure -->
+                    <div class="building">
+                        <div class="floor floor-1"></div>
+                        <div class="floor floor-2"></div>
+                        <div class="floor floor-3"></div>
+                        <div class="floor floor-4"></div>
+                        <div class="floor floor-5"></div>
+                        <div class="floor floor-6"></div>
+                        <div class="floor floor-7"></div>
+                        <div class="floor floor-8"></div>
+
+                        <!-- Windows -->
+                        <div class="window" style="bottom: 5px; left: 20px;"></div>
+                        <div class="window" style="bottom: 5px; right: 20px;"></div>
+                        <div class="window" style="bottom: 25px; left: 20px;"></div>
+                        <div class="window" style="bottom: 25px; right: 20px;"></div>
+                        <div class="window" style="bottom: 45px; left: 20px;"></div>
+                        <div class="window" style="bottom: 45px; right: 20px;"></div>
+                        <div class="window" style="bottom: 65px; left: 20px;"></div>
+                        <div class="window" style="bottom: 65px; right: 20px;"></div>
+                        <div class="window" style="bottom: 85px; left: 20px;"></div>
+                        <div class="window" style="bottom: 85px; right: 20px;"></div>
+                        <div class="window" style="bottom: 105px; left: 20px;"></div>
+                        <div class="window" style="bottom: 105px; right: 20px;"></div>
+                        <div class="window" style="bottom: 125px; left: 20px;"></div>
+                        <div class="window" style="bottom: 125px; right: 20px;"></div>
+                        <div class="window" style="bottom: 145px; left: 20px;"></div>
+                        <div class="window" style="bottom: 145px; right: 20px;"></div>
+                    </div>
+
+                    <!-- Crane -->
+                    <div class="crane">
+                        <div class="crane-arm">
+                            <div class="crane-cable">
+                                <div class="crane-load"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scaffold -->
+                    <div class="scaffold">
+                        <div class="scaffold-plank" style="bottom: 30px;"></div>
+                        <div class="scaffold-plank" style="bottom: 60px;"></div>
+                        <div class="scaffold-plank" style="bottom: 90px;"></div>
+                        <div class="scaffold-plank" style="bottom: 120px;"></div>
+                        <div class="scaffold-plank" style="bottom: 150px;"></div>
+                    </div>
+
+                    <!-- Workers -->
+                    <div class="worker worker-1"></div>
+                    <div class="worker worker-2"></div>
+
+                    <!-- Dust particles -->
+                    <div class="dust dust-1"></div>
+                    <div class="dust dust-2"></div>
+                    <div class="dust dust-3"></div>
+                    <div class="dust dust-4"></div>
+                    <div class="dust dust-5"></div>
+                </div>
+
+                <h2>Under Maintenance</h2>
+
+                <p>We are currently <span class="highlight">updating the interface</span> and several other details.</p>
+                <p>Our team is working hard to complete this update as quickly as possible.</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+
+                <div class="estimated-time">
+                    Estimated completion time: <span class="highlight">Coming Soon</span>
+                </div>
+
+                <p>Thank you for your patience and understanding.</p>
+                <p>While you wait, why not try a quick game of Blackjack?</p>
+            </div>
+
+            <div class="game-section">
+                <div class="blackjack-container">
+                    <h3 class="game-title">Play Blackjack</h3>
+                    <div class="blackjack-header">
+                        <div class="money-container">
+                            <span class="money-label">Balance:</span>
+                            <span class="money-amount">$100</span>
+                        </div>
+                        <div class="bet-container">
+                            <span class="bet-label">Current Bet:</span>
+                            <span class="bet-amount">$10</span>
+                            <div class="bet-controls">
+                                <button class="bet-btn decrease-btn">-</button>
+                                <button class="bet-btn increase-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-area">
+                        <div class="dealer-area">
+                            <h3>Dealer: <span class="dealer-score">0</span></h3>
+                            <div class="dealer-cards"></div>
+                        </div>
+
+                        <div class="player-area">
+                            <h3>Player: <span class="player-score">0</span></h3>
+                            <div class="player-cards"></div>
+                        </div>
+
+                        <div class="game-message"></div>
+
+                        <div class="game-controls">
+                            <button class="game-btn deal-btn">Play</button>
+                            <button class="game-btn hit-btn" disabled>Hit</button>
+                            <button class="game-btn stand-btn" disabled>Stand</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; 2025 CHROMEGAMBLES. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        // Blackjack Game Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            // Game variables
+            let deck = [];
+            let dealerCards = [];
+            let playerCards = [];
+            let dealerScore = 0;
+            let playerScore = 0;
+            let money = 100;
+            let currentBet = 10;
+            let gameInProgress = false;
+            let dealerTurn = false;
+
+            // DOM elements
+            const dealerCardsEl = document.querySelector('.dealer-cards');
+            const playerCardsEl = document.querySelector('.player-cards');
+            const dealerScoreEl = document.querySelector('.dealer-score');
+            const playerScoreEl = document.querySelector('.player-score');
+            const moneyEl = document.querySelector('.money-amount');
+            const betEl = document.querySelector('.bet-amount');
+            const gameMessageEl = document.querySelector('.game-message');
+            const dealBtn = document.querySelector('.deal-btn');
+            const hitBtn = document.querySelector('.hit-btn');
+            const standBtn = document.querySelector('.stand-btn');
+            const decreaseBetBtn = document.querySelector('.decrease-btn');
+            const increaseBetBtn = document.querySelector('.increase-btn');
+
+            // Card suits and values
+            const suits = ['♠', '♥', '♦', '♣'];
+            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+            // Initialize the game
+            updateMoney();
+            updateBet();
+
+            // Event listeners
+            dealBtn.addEventListener('click', startGame);
+            hitBtn.addEventListener('click', hit);
+            standBtn.addEventListener('click', stand);
+            decreaseBetBtn.addEventListener('click', decreaseBet);
+            increaseBetBtn.addEventListener('click', increaseBet);
+
+            // Create a new deck of cards
+            function createDeck() {
+                const deck = [];
+                for (let suit of suits) {
+                    for (let value of values) {
+                        deck.push({ suit, value });
+                    }
+                }
+                return deck;
+            }
+
+            // Shuffle the deck
+            function shuffleDeck(deck) {
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
+                return deck;
+            }
+
+            // Get card value
+            function getCardValue(card) {
+                if (['J', 'Q', 'K'].includes(card.value)) return 10;
+                if (card.value === 'A') return 11;
+                return parseInt(card.value);
+            }
+
+            // Calculate score of hand
+            function calculateScore(cards) {
+                let score = 0;
+                let aces = 0;
+
+                for (let card of cards) {
+                    if (card.value === 'A') {
+                        aces++;
+                        score += 11;
+                    } else if (['J', 'Q', 'K'].includes(card.value)) {
+                        score += 10;
+                    } else {
+                        score += parseInt(card.value);
+                    }
+                }
+
+                // Adjust for aces if score is over 21
+                while (score > 21 && aces > 0) {
+                    score -= 10;
+                    aces--;
+                }
+
+                return score;
+            }
+
+            // Create card element
+            function createCardElement(card, hidden = false) {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card';
+
+                if (hidden) {
+                    cardEl.classList.add('hidden');
+                    return cardEl;
+                }
+
+                // Add color class based on suit
+                if (card.suit === '♥' || card.suit === '♦') {
+                    cardEl.classList.add('red');
+                } else {
+                    cardEl.classList.add('black');
+                }
+
+                // Create card content
+                const valueTop = document.createElement('div');
+                valueTop.className = 'card-value';
+                valueTop.textContent = card.value;
+
+                const suit = document.createElement('div');
+                suit.className = 'card-suit';
+                suit.textContent = card.suit;
+
+                const valueBottom = document.createElement('div');
+                valueBottom.className = 'card-value';
+                valueBottom.textContent = card.value;
+
+                cardEl.appendChild(valueTop);
+                cardEl.appendChild(suit);
+                cardEl.appendChild(valueBottom);
+
+                return cardEl;
+            }
+
+            // Update money display
+            function updateMoney() {
+                moneyEl.textContent = `$${money}`;
+            }
+
+            // Update bet display
+            function updateBet() {
+                betEl.textContent = `$${currentBet}`;
+            }
+
+            // Decrease bet
+            function decreaseBet() {
+                if (gameInProgress) return;
+                if (currentBet > 5) {
+                    currentBet -= 5;
+                    updateBet();
+                }
+            }
+
+            // Increase bet
+            function increaseBet() {
+                if (gameInProgress) return;
+                if (currentBet < money) {
+                    currentBet += 5;
+                    updateBet();
+                }
+            }
+
+            // Start a new game (Play button)
+            function startGame() {
+                if (gameInProgress) return;
+                if (money < currentBet) {
+                    gameMessageEl.textContent = "You don't have enough money!";
+                    return;
+                }
+
+                // Reset game state
+                gameInProgress = true;
+                dealerTurn = false;
+                dealerCards = [];
+                playerCards = [];
+                gameMessageEl.textContent = '';
+                dealerCardsEl.innerHTML = '';
+                playerCardsEl.innerHTML = '';
+
+                // Create and shuffle deck
+                deck = shuffleDeck(createDeck());
+
+                // Deal initial cards
+                dealerCards.push(deck.pop());
+                playerCards.push(deck.pop());
+                dealerCards.push(deck.pop());
+                playerCards.push(deck.pop());
+
+                // Display cards
+                dealerCardsEl.appendChild(createCardElement(dealerCards[0]));
+                dealerCardsEl.appendChild(createCardElement(dealerCards[1], true)); // Hide dealer's second card
+
+                playerCards.forEach(card => {
+                    playerCardsEl.appendChild(createCardElement(card));
+                });
+
+                // Update scores
+                dealerScore = getCardValue(dealerCards[0]); // Only show value of first card
+                playerScore = calculateScore(playerCards);
+                dealerScoreEl.textContent = dealerScore;
+                playerScoreEl.textContent = playerScore;
+
+                // Check for blackjack
+                if (playerScore === 21) {
+                    playerWins(1.5); // Blackjack pays 3:2
+                    return;
+                }
+
+                // Enable/disable buttons
+                dealBtn.disabled = true;
+                hitBtn.disabled = false;
+                standBtn.disabled = false;
+                decreaseBetBtn.disabled = true;
+                increaseBetBtn.disabled = true;
+            }
+
+            // Player hits
+            function hit() {
+                if (!gameInProgress || dealerTurn) return;
+
+                // Deal a card to player
+                const card = deck.pop();
+                playerCards.push(card);
+                playerCardsEl.appendChild(createCardElement(card));
+
+                // Update score
+                playerScore = calculateScore(playerCards);
+                playerScoreEl.textContent = playerScore;
+
+                // Check if player busts
+                if (playerScore > 21) {
+                    playerBusts();
+                }
+            }
+
+            // Player stands
+            function stand() {
+                if (!gameInProgress || dealerTurn) return;
+
+                dealerTurn = true;
+
+                // Reveal dealer's hidden card
+                dealerCardsEl.innerHTML = '';
+                dealerCards.forEach(card => {
+                    dealerCardsEl.appendChild(createCardElement(card));
+                });
+
+                // Update dealer score
+                dealerScore = calculateScore(dealerCards);
+                dealerScoreEl.textContent = dealerScore;
+
+                // Dealer draws cards until score is 17 or higher
+                dealerPlay();
+            }
+
+            // Dealer's turn
+            function dealerPlay() {
+                // Use setTimeout to create a delay between dealer's moves
+                setTimeout(() => {
+                    // Dealer draws until score is 17 or higher
+                    if (dealerScore < 17) {
+                        const card = deck.pop();
+                        dealerCards.push(card);
+                        dealerCardsEl.appendChild(createCardElement(card));
+
+                        dealerScore = calculateScore(dealerCards);
+                        dealerScoreEl.textContent = dealerScore;
+
+                        dealerPlay(); // Continue dealer's turn
+                    } else {
+                        // Determine winner
+                        determineWinner();
+                    }
+                }, 700);
+            }
+
+            // Determine winner
+            function determineWinner() {
+                if (dealerScore > 21) {
+                    dealerBusts();
+                } else if (dealerScore > playerScore) {
+                    playerLoses();
+                } else if (dealerScore < playerScore) {
+                    playerWins();
+                } else {
+                    push();
+                }
+            }
+
+            // Player busts
+            function playerBusts() {
+                gameMessageEl.textContent = "Bust! You went over 21.";
+
+                // Make sure player doesn't lose all money
+                if (money - currentBet < 10) {
+                    money = Math.max(10, money - Math.floor(currentBet / 2));
+                    gameMessageEl.textContent += " Lucky! You only lost half your bet.";
+                } else {
+                    money -= currentBet;
+                }
+
+                updateMoney();
+                endGame();
+            }
+
+            // Dealer busts
+            function dealerBusts() {
+                gameMessageEl.textContent = "Dealer busts! You win!";
+                playerWins();
+            }
+
+            // Player wins
+            function playerWins(multiplier = 1) {
+                const winnings = currentBet * multiplier;
+                money += winnings;
+
+                if (multiplier > 1) {
+                    gameMessageEl.textContent = `Blackjack! You win $${winnings}!`;
+                } else {
+                    gameMessageEl.textContent = `You win $${winnings}!`;
+                }
+
+                updateMoney();
+                endGame();
+            }
+
+            // Player loses
+            function playerLoses() {
+                gameMessageEl.textContent = "Dealer wins.";
+
+                // Make sure player doesn't lose all money
+                if (money - currentBet < 10) {
+                    money = Math.max(10, money - Math.floor(currentBet / 2));
+                    gameMessageEl.textContent += " Lucky! You only lost half your bet.";
+                } else {
+                    money -= currentBet;
+                }
+
+                updateMoney();
+                endGame();
+            }
+
+            // Push (tie)
+            function push() {
+                gameMessageEl.textContent = "Push! It's a tie.";
+                endGame();
+            }
+
+            // End the game
+            function endGame() {
+                gameInProgress = false;
+                dealBtn.disabled = false;
+                hitBtn.disabled = true;
+                standBtn.disabled = true;
+                decreaseBetBtn.disabled = false;
+                increaseBetBtn.disabled = false;
+
+                // Adjust bet if needed
+                if (currentBet > money) {
+                    currentBet = money;
+                    updateBet();
+                }
+
+                // Give player more money if they're running low
+                if (money < 20) {
+                    money = 100;
+                    gameMessageEl.textContent += " You've been given a $100 bonus!";
+                    updateMoney();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
