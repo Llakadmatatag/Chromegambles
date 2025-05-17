@@ -9,15 +9,18 @@ function formatNumber(number) {
 async function updateLeaderboard() {
     try {
         console.log("Starting updateLeaderboard...");
-        
-        // Get the diceblox document
-        const docRef = db.collection('diceblox').doc('2025-05-16T10:47:09.291Z');
-        const doc = await docRef.get();
-        
-        if (!doc.exists) {
-            console.error("Document not found");
+        // Get the most recent diceblox document
+        const snapshot = await db.collection('diceblox')
+            .orderBy(firebase.firestore.FieldPath.documentId(), 'desc')
+            .limit(1)
+            .get();
+
+        if (snapshot.empty) {
+            console.error("No documents found");
             return;
         }
+
+        const doc = snapshot.docs[0];
 
         console.log("Document data:", doc.data());
         
@@ -60,8 +63,12 @@ async function updateLeaderboard() {
                 const nameElement = podiumItem.querySelector('.winner-name');
                 const wageredElement = podiumItem.querySelector('.winner-wagered');
                 
-                if (nameElement) nameElement.textContent = player.username;
-                if (wageredElement) wageredElement.textContent = `${formatNumber(player.wagered)} coins`;
+                if (nameElement) {
+                    nameElement.textContent = player.username;
+                }
+                if (wageredElement) {
+                    wageredElement.textContent = `${formatNumber(player.wagered)} coins`;
+                }
             }
         });
 
@@ -85,8 +92,10 @@ async function updateLeaderboard() {
     }
 }
 
-// Initial update
-updateLeaderboard();
+document.addEventListener('DOMContentLoaded', () => {
+    // Initial update
+    updateLeaderboard();
 
-// Update every 30 seconds
-setInterval(updateLeaderboard, 30000);
+    // Update every 30 seconds
+    setInterval(updateLeaderboard, 30000);
+});
