@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonuses - CHROMEGAMBLES</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bonuses.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/main-logo.png" alt="ChromeGambles Logo">
+                <span class="nav-logo-text">ChromeGambles</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="bonuses.html" class="active">Bonuses</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="community.html">Community</a>
+            </div>
+            <button class="mobile-menu" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="bonuses-page">
+        <section class="page-header">
+            <h1>BONUSES</h1>
+            <p>Check out our exclusive bonuses from our partners</p>
+        </section>
+
+        <section class="partners-grid">
+            <!-- BETBOLT Card -->
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="assets/images/partners/betbolt.png" alt="BETBOLT Logo">
+                </div>
+                <div class="bonus-list">
+                    <ul>
+                        <li>10% Deposit Bonus ($50 minimum)</li>
+                        <li>Instan Rakeback</li>
+                        <li>Weekly Cashback</li>
+                    </ul>
+                </div>
+                <div class="partner-buttons">
+                    <a href="https://betbolt.com/?r=CHROME" class="btn btn-primary" target="_blank">Visit BETBOLT</a>
+                    <a href="#" class="btn btn-secondary" onclick="showBonusInstructions()">Claim Bonus</a>
+                </div>
+            </div>
+
+            <!-- Partner Card 2 -->
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="assets/images/partners/diceblox-logo.png" alt="DICEBLOX Logo">
+                </div>
+                <div class="bonus-list">
+                    <ul>
+                        <li>Free Cases</li>
+                        <li>Level Up Case</li>
+                        <li>10% Deposit Bonus ($50 minimum)</li>
+                    </ul>
+                </div>
+                <div class="partner-buttons">
+                    <a href="https://diceblox.com/r/chrome" class="btn btn-primary" target="_blank">Visit DICEBLOX</a>
+                    <a href="#" class="btn btn-secondary" onclick="showBonusInstructions()">Claim Bonus</a>
+                </div>
+            </div>
+
+            <!-- Partner Card 3 -->
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="assets/images/partners/hypebet-logo.png" alt="HYPEBET Logo">
+                </div>
+                <div class="bonus-list">
+                    <ul>
+                        <li>$20 Deposit Bonus ($20 or more)</li>
+                        <li>Instant Rakeback</li>
+                        <li>Daily, Weekly dan Monthly Cashback</li>
+                    </ul>
+                </div>
+                <div class="partner-buttons">
+                    <a href="https://hype.bet/chromegambles" class="btn btn-primary" target="_blank">Visit HYPEBET</a>
+                    <a href="#" class="btn btn-secondary" onclick="showBonusInstructions()">Claim Bonus</a>
+                </div>
+            </div>
+
+            <!-- Partner Invitation -->
+            <div class="partner-invite" style="background: linear-gradient(135deg, #2a2e3a 0%, #1e2129 100%); border-radius: 10px; padding: 25px; margin-top: 20px; text-align: center; max-width: 300px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                <h3 style="color: #fff; margin-bottom: 15px; font-size: 1.4rem;">Become Our Partner</h3>
+                <p style="color: #c1c9d9; margin-bottom: 20px; line-height: 1.5;">Want to feature your platform here? Join our network of premium partners and get exposure to our active community.</p>
+                <a href="https://discord.gg/dwRSfF2w" class="btn btn-primary" target="_blank" style="background: #5865F2; color: white; text-decoration: none; padding: 10px 25px; border-radius: 5px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+                    <i class="fab fa-discord"></i> Join Our Discord
+                </a>
+                <p style="color: #8a94a8; font-size: 0.85rem; margin-top: 15px;">Contact us to discuss partnership opportunities</p>
+            </div>
+
+        </section>
+
+        <section class="bonus-note">
+            <div class="note-container">
+                <p><strong>Note:</strong> Bonuses are only valid for users who use the code "CHROME" or register using the referral link provided for each partner platform.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Column 1: Branding -->
+            <div class="footer-col footer-brand">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/images/main-logo.png" alt="ChromeGambles" width="140" height="60">
+                    <span>ChromeGambles</span>
+                </a>
+                <p class="copyright">&copy; <span id="current-year">2024</span> ChromeGambles. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://discord.gg/dwRSfF2w" target="_blank" class="social-link" aria-label="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="https://kick.com/chromegambles" target="_blank" class="social-link" aria-label="Kick" style="font-weight: bold; font-size: 1.2em; display: inline-flex; align-items: center;">
+                        <span style="margin-right: 5px;">Kick</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1.5-16.5h3v9h-3v-9zm4.5 0h3v9h-3v-9z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Navigation -->
+            <div class="footer-col">
+                <h3 class="footer-heading">Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bonuses.html">Bonuses</a></li>
+                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                    <li><a href="community.html">Community</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Information -->
+            <div class="footer-col">
+                <h3 class="footer-heading">Information</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); alert('Admin Panel is currently under development.');">Admin Panel</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Legal & Credits -->
+            <div class="footer-col">
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>18+ Only. Please gamble responsibly. Gambling can be addictive and you should not use it to solve financial problems.</p>
+                </div>
+                <div class="credits">
+                    <p>Designed by: <a href="https://twitter.com/Llakadmatatag" target="_blank" rel="noreferrer">@Llakadmatatag</a><br>Powered by VSCode</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize mobile menu
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const body = document.body;
+            
+            if (mobileMenu && navLinks) {
+                // Mobile menu toggle
+                mobileMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (navLinks.classList.contains('active') && 
+                        !e.target.closest('.nav-links') && 
+                        !e.target.closest('.mobile-menu')) {
+                        mobileMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script>
+        function showBonusInstructions() {
+            alert("How to claim your bonus?\n1. Register using the available link or enter code \"CHROME\" before depositing.\n2. Send proof that you deposited with code \"CHROME\" with a full screenshot (no crop).\n3. Create a ticket in discord and include the screenshot proof.\n4. Wait for our team to respond. (No need to spam)");
+        }
+    </script>
+</body>
+</html>

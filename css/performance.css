@@ -1,0 +1,124 @@
+/* Performance Optimization Styles */
+
+/* Smooth scrolling for better UX */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optimize font display */
+@font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: local('Quicksand'), 
+         url('../fonts/Quicksand-VariableFont_wght.woff2') format('woff2'),
+         url('../fonts/Quicksand-VariableFont_wght.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Crimson Pro';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: local('Crimson Pro'), 
+         url('../fonts/CrimsonPro-VariableFont_wght.woff2') format('woff2'),
+         url('../fonts/CrimsonPro-VariableFont_wght.woff') format('woff');
+}
+
+/* Optimize image rendering */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Lazy loading styles */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+}
+
+img.lazyloaded {
+    opacity: 1;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Optimize content visibility */
+.content-visibility {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
+}
+
+/* Optimize font loading */
+.font-loading body {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.font-loaded body {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Optimize layout shifts */
+.aspect-ratio-box {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.aspect-ratio-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Optimize rendering performance */
+.will-change {
+    will-change: transform, opacity;
+}
+
+/* Optimize image loading */
+img[loading="lazy"] {
+    background: #f5f5f5;
+}
+
+/* Optimize print styles */
+@media print {
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}

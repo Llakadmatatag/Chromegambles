@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ChromeGambles</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: #ffcc00;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            color: #fff;
+            transform: translateX(-5px);
+        }
+        .back-button i {
+            margin-right: 8px;
+        }
+        .faq-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .faq-header h1 {
+            color: #ffcc00;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .faq-container {
+            background: #1e2129;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .faq-item {
+            border-bottom: 1px solid #2a2e3a;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: #252a34;
+            color: #fff;
+            padding: 20px 25px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            background: #2a2e3a;
+        }
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #1e2129;
+            color: #c1c9d9;
+        }
+        .faq-item.active .faq-answer {
+            padding: 20px 25px;
+            max-height: 1000px;
+        }
+        .faq-item.active .faq-question {
+            background: #2a2e3a;
+        }
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about ChromeGambles</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    What is ChromeGambles?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>ChromeGambles is a community platform that connects users with exclusive bonuses and promotions from trusted gambling partners. We provide a curated list of the best deals and offers in one place.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I claim the bonuses?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>To claim a bonus:</p>
+                    <ol>
+                        <li>Click on the partner's link or use the provided bonus code</li>
+                        <li>Create an account using our referral link or enter the bonus code during registration</li>
+                        <li>Follow any additional instructions provided by the partner site</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is there an age requirement?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, you must be at least 18 years old (or the legal gambling age in your jurisdiction) to participate in any gambling activities through our partner sites.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    How does the leaderboard work?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Our leaderboard tracks player activity across partner platforms. The more you wager, the higher you'll rank. Top players may be eligible for special rewards and bonuses.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    How can I contact support?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>For any questions or support, please join our <a href="https://discord.gg/dwRSfF2w" target="_blank" rel="noreferrer" style="color: #ffcc00; text-decoration: none;">Discord community</a> and create a support ticket. Our team will assist you as soon as possible.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentNode;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

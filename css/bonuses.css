@@ -1,0 +1,158 @@
+/* Bonuses Page Styles */
+.bonuses-page {
+    padding-top: 80px; /* Untuk memberikan ruang untuk navbar fixed */
+}
+
+/* Page header style is now in style.css */
+
+/* Remove background pattern from page header */
+.bonuses-page .page-header::before {
+    display: none;
+}
+
+.page-header h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(0,168,107,0.3);
+    border: 3px solid var(--color-primary);
+    border-radius: 20px;
+    padding: 1rem;
+    background: linear-gradient(45deg, rgba(0,168,107,0.1), rgba(0,168,107,0.3));
+    box-shadow: 0 0 20px rgba(0,168,107,0.5);
+    transform: perspective(500px) rotateX(10deg);
+    transition: all 0.3s ease;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    color: var(--color-white);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Partners Grid */
+.partners-grid {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* Partner Card */
+.partner-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,168,107,0.2);
+}
+
+/* Partner Logo - Default (Mobile) */
+.partner-logo {
+    position: relative;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    z-index: 1;
+}
+
+.partner-logo img {
+    max-width: 250px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+}
+
+.placeholder-logo {
+    background: rgba(0,168,107,0.1);
+    color: var(--color-primary);
+    padding: 2rem;
+    border-radius: 10px;
+    font-family: var(--font-heading);
+    font-weight: bold;
+}
+
+/* Bonus List */
+.bonus-list ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.bonus-list li {
+    padding: 0.5rem 0;
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 3px #000, 0 0 3px #000, 0 0 3px #000, 0 0 3px #000, 0 0 3px #000, 0 0 3px #000, 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.bonus-list li::before {
+    content: '✦';
+    color: var(--color-primary);
+    margin-right: 0.5rem;
+}
+
+/* Partner Buttons */
+.partner-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.partner-buttons .btn {
+    width: 100%;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 168, 107, 0.9);
+    color: #000000;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Bonus Note */
+.bonus-note {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.note-container {
+    background: rgba(0,168,107,0.1);
+    border-left: 4px solid var(--color-primary);
+    padding: 1.5rem;
+    border-radius: 0 10px 10px 0;
+}
+
+.note-container p {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.note-container strong {
+    color: var(--color-primary);
+}
+
+/* Responsive adjustments will be handled by responsive.css */

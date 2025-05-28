@@ -1,0 +1,25 @@
+# Allow all web crawlers to index the site
+User-agent: *
+Allow: /
+
+# Disallow access to sensitive directories
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /config/
+Disallow: /backup/
+Disallow: /vendor/
+Disallow: /node_modules/
+Disallow: /tmp/
+
+# Disallow access to specific files
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /yarn.lock
+Disallow: /README.md
+Disallow: /CHANGELOG.md
+Disallow: /LICENSE
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml

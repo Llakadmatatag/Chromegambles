@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - CHROMEGAMBLES</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/leaderboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+    // Handle ethereum injection more defensively
+    try {
+        if (window.ethereum && !Object.getOwnPropertyDescriptor(window, 'ethereum')) {
+            Object.defineProperty(window, 'ethereum', {
+                value: window.ethereum,
+                writable: false,
+                configurable: false,
+                enumerable: true
+            });
+        }
+    } catch (e) {
+        console.warn('Could not define ethereum property:', e);
+    }
+    </script>
+    <!-- Loading Indicator -->
+    <style>
+        /* Tab Styles */
+        .leaderboard-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding: 0 20px;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+        
+        .tab-btn:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ffcc00;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            color: #ffcc00;
+        }
+        
+        .tab-btn.active:after {
+            transform: scaleX(1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* No Data Message */
+        #no-data-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .no-data-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .no-data-container i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ffcc00;
+        }
+        
+        .no-data-container p {
+            color: #ccc;
+            font-size: 16px;
+            margin: 0;
+        }
+        
+        /* Error Message */
+        #error-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #ff6b6b;
+            background: #2a2a2a;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .leaderboard-table th {
+            background-color: #1e1e1e;
+            color: #ffcc00;
+            font-weight: 600;
+        }
+        .leaderboard-table tr:hover {
+            background-color: #2a2a2a;
+        }
+        .top-1 { background-color: rgba(255, 215, 0, 0.1); }
+        .top-2 { background-color: rgba(192, 192, 192, 0.1); }
+        .top-3 { background-color: rgba(205, 127, 50, 0.1); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/main-logo.png" alt="ChromeGambles Logo">
+                <span class="nav-logo-text">ChromeGambles</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="bonuses.html">Bonuses</a>
+                <a href="leaderboard.html" class="active">Leaderboard</a>
+                <a href="community.html">Community</a>
+            </div>
+            <button class="mobile-menu" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="leaderboard-page">
+        <section class="page-header">
+            <h1>LEADERBOARD</h1>
+            <p>Every wager counts. Keep wagering to climb the top and win the prize</p>
+        </section>
+
+        <section class="leaderboard-section">
+            <div class="leaderboard-container">
+                <div class="leaderboard-tabs">
+                    <button class="tab-btn active" data-tab="diceblox">DICEBLOX</button>
+                    <button class="tab-btn" data-tab="betbolt">BETBOLT</button>
+                </div>
+                
+                <div id="diceblox-tab" class="tab-content active">
+                    <div class="leaderboard-header">
+                        <h2>$400 DICEBLOX LEADERBOARD</h2>
+                        <p class="code-info">use code "CHROME" to participate</p>
+                    </div>
+                </div>
+                
+                <div id="betbolt-tab" class="tab-content">
+                    <div class="leaderboard-header">
+                        <h2>$1,000 BETBOLT LEADERBOARD</h2>
+                        <p class="code-info">Register using <a href="https://betbolt.com/?r=CHROME" target="_blank" style="color: var(--color-primary); text-decoration: underline; font-weight: bold;">this link</a> to participate</p>
+                    </div>
+                </div>
+
+                <div class="countdown-timer">
+                    <div class="timer-label">Competition ends in:</div>
+                    <div class="timer-display" id="diceblox-timer">
+                        <div class="timer-item">
+                            <span class="time days">000</span>
+                            <span class="label">Days</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="time hours">00</span>
+                            <span class="label">Hours</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="time minutes">00</span>
+                            <span class="label">Minutes</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="time seconds">00</span>
+                            <span class="label">Seconds</span>
+                        </div>
+                    </div>
+                    <div class="timer-display" id="betbolt-timer" style="display: none;">
+                        <div class="timer-item">
+                            <span class="time days">000</span>
+                            <span class="label">Days</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="time hours">00</span>
+                            <span class="label">Hours</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="time minutes">00</span>
+                            <span class="label">Minutes</span>
+                        </div>
+                        <div class="timer-item">
+                            <span class="time seconds">00</span>
+                            <span class="label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error-message" class="error-message"></div>
+                
+                <!-- No Data Message -->
+                <div id="no-data-message">
+                    <div class="no-data-container">
+                        <i class="fas fa-trophy" style="font-size: 48px; margin-bottom: 20px; color: #ffcc00;"></i>
+                        <p>No leaderboard data available at the moment.</p>
+                    </div>
+                </div>
+
+                <div id="diceblox-podium" class="podium-section">
+                    <div class="podium-container">
+                        <div class="podium-place second">
+                            <div class="crown">👑</div>
+                            <div class="username">-</div>
+                            <div class="wagered">$0</div>
+                            <div class="prize">$100</div>
+                            <div class="place-number">2</div>
+                        </div>
+                        <div class="podium-place first">
+                            <div class="crown">👑</div>
+                            <div class="username">-</div>
+                            <div class="wagered">$0</div>
+                            <div class="prize">$200</div>
+                            <div class="place-number">1</div>
+                        </div>
+                        <div class="podium-place third">
+                            <div class="crown">👑</div>
+                            <div class="username">-</div>
+                            <div class="wagered">$0</div>
+                            <div class="prize">$50</div>
+                            <div class="place-number">3</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="diceblox-table" class="leaderboard-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Username</th>
+                                <th>Wagered</th>
+                                <th>Prize</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded dynamically from Google Sheets -->
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 20px;">Loading leaderboard data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="diceblox-info" class="participation-info">
+                    <h3>How to Participate (DICEBLOX)</h3>
+                    <ol>
+                        <li>Register on <a href="https://diceblox.com/r/chrome" target="_blank" style="color: #4CAF50; text-decoration: underline;">DICEBLOX</a> using code "CHROME"</li>
+                        <li>Start wagering on any game</li>
+                        <li>Your total wagered amount will be automatically tracked</li>
+                        <li>Competition ends May 31, 2025 at 23:59 UTC</li>
+                        <li>Prizes will be credited within 48 hours after competition ends</li>
+                    </ol>
+                </div>
+                
+                <div id="betbolt-podium" class="podium-section" style="display: none;">
+                    <div class="podium-container">
+                        <div class="podium-place second">
+                            <div class="crown">👑</div>
+                            <div class="username">-</div>
+                            <div class="wagered">0 coins</div>
+                            <div class="prize">$300</div>
+                            <div class="place-number">2</div>
+                        </div>
+                        <div class="podium-place first">
+                            <div class="crown">👑</div>
+                            <div class="username">-</div>
+                            <div class="wagered">0 coins</div>
+                            <div class="prize">$500</div>
+                            <div class="place-number">1</div>
+                        </div>
+                        <div class="podium-place third">
+                            <div class="crown">👑</div>
+                            <div class="username">-</div>
+                            <div class="wagered">0 coins</div>
+                            <div class="prize">$100</div>
+                            <div class="place-number">3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="betbolt-table" class="leaderboard-table" style="display: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Username</th>
+                                <th>Wagered</th>
+                                <th>Prize</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded dynamically from Google Sheets -->
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 20px;">Loading leaderboard data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="betbolt-info" class="participation-info" style="display: none;">
+                    <h3>How to Participate (BETBOLT)</h3>
+                    <ol>
+                        <li>Register on BETBOLT by clicking <a href="https://betbolt.com/?r=CHROME" target="_blank" style="color: #4CAF50; text-decoration: underline;">here</a></li>
+                        <li>Start wagering on any game</li>
+                        <li>Your total wagered amount will be automatically tracked</li>
+                        <li>Competition ends June 11, 2025 at 23:59 UTC</li>
+                        <li>Prizes will be credited within 48 hours after competition ends</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Column 1: Branding -->
+            <div class="footer-col footer-brand">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/images/main-logo.png" alt="ChromeGambles" width="140" height="60">
+                    <span>ChromeGambles</span>
+                </a>
+                <p class="copyright">&copy; <span id="current-year">2024</span> ChromeGambles. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com" target="_blank" rel="noreferrer" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://discord.gg/dwRSfF2w" target="_blank" rel="noreferrer" class="social-link" aria-label="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="https://kick.com/chromegambles" target="_blank" rel="noreferrer" class="social-link" aria-label="Kick" style="font-weight: bold; font-size: 1.2em; display: inline-flex; align-items: center;">
+                        <span style="margin-right: 5px;">Kick</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1.5-16.5h3v9h-3v-9zm4.5 0h3v9h-3v-9z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Navigation -->
+            <div class="footer-col">
+                <h3 class="footer-heading">Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bonuses.html">Bonuses</a></li>
+                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                    <li><a href="community.html">Community</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Information -->
+            <div class="footer-col">
+                <h3 class="footer-heading">Information</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); alert('Admin Panel is currently under development.');">Admin Panel</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Legal & Credits -->
+            <div class="footer-col">
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>18+ Only. Please gamble responsibly. Gambling can be addictive and you should not use it to solve financial problems.</p>
+                </div>
+                <div class="credits">
+                    <p>Designed by: <a href="https://twitter.com/Llakadmatatag" target="_blank" rel="noreferrer">@Llakadmatatag</a><br>Powered by VSCode</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+    
+    <!-- Load scripts -->
+    <!-- Security and Configuration -->
+    <script src="js/config.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/secure-logger.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/countdown.js"></script>
+    <script src="js/leaderboard-data.js"></script>
+    <script src="js/betbolt-leaderboard.js"></script>
+    
+    <!-- Initialize Security -->
+    <script>
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        document.addEventListener('keydown', function(e) {
+            if (window.CONFIG && !window.CONFIG.DEBUG) {
+                // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+                if (
+                    e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'i' || e.key === 'j')) ||
+                    (e.ctrlKey && (e.key === 'u' || e.key === 'U'))
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+    </script>
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            
+            function showTab(tabName) {
+                console.log('Showing tab:', tabName);
+                
+                // Hide all tab contents and remove active class
+                document.querySelectorAll('.tab-content, .podium-section, .leaderboard-table, .participation-info')
+                    .forEach(el => {
+                        if (el) el.style.display = 'none';
+                    });
+                
+                // Show selected tab content
+                const showElement = (id, display = 'block') => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.style.display = display;
+                        el.classList.add('active');
+                    }
+                    return el;
+                };
+                
+                // Show tab content and related elements
+                showElement(`${tabName}-tab`);
+                showElement(`${tabName}-podium`);
+                showElement(`${tabName}-table`);
+                showElement(`${tabName}-info`);
+                
+                // Update active timer display
+                const dicebloxTimer = document.getElementById('diceblox-timer');
+                const betboltTimer = document.getElementById('betbolt-timer');
+                
+                if (tabName === 'diceblox') {
+                    if (dicebloxTimer) dicebloxTimer.style.display = 'flex';
+                    if (betboltTimer) betboltTimer.style.display = 'none';
+                } else if (tabName === 'betbolt') {
+                    if (dicebloxTimer) dicebloxTimer.style.display = 'none';
+                    if (betboltTimer) betboltTimer.style.display = 'flex';
+                }
+                
+                // Update active button
+                tabBtns.forEach(btn => {
+                    if (btn && btn.getAttribute) {
+                        const isActive = btn.getAttribute('data-tab') === tabName;
+                        btn.classList.toggle('active', isActive);
+                        
+                        // Add ARIA attributes for accessibility
+                        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                        btn.setAttribute('tabindex', isActive ? '0' : '-1');
+                    }
+                });
+                
+                // If BetBolt tab is clicked, trigger data fetch
+                if (tabName === 'betbolt' && typeof fetchBetboltLeaderboard === 'function') {
+                    console.log('Fetching BetBolt leaderboard...');
+                    fetchBetboltLeaderboard();
+                }
+                
+                // Update URL hash without page reload
+                if (history.pushState) {
+                    history.pushState(null, null, `#${tabName}`);
+                } else {
+                    window.location.hash = `#${tabName}`;
+                }
+            }
+            
+            // Add click event to tab buttons
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tab = this.getAttribute('data-tab');
+                    if (tab) {
+                        showTab(tab);
+                    }
+                });
+                
+                // Add keyboard navigation
+                btn.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const tab = this.getAttribute('data-tab');
+                        if (tab) {
+                            showTab(tab);
+                        }
+                    } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        const currentIndex = Array.from(tabBtns).findIndex(btn => 
+                            btn.getAttribute('data-tab') === this.getAttribute('data-tab')
+                        );
+                        let nextIndex;
+                        
+                        if (e.key === 'ArrowRight') {
+                            nextIndex = (currentIndex + 1) % tabBtns.length;
+                        } else {
+                            nextIndex = (currentIndex - 1 + tabBtns.length) % tabBtns.length;
+                        }
+                        
+                        const nextTab = tabBtns[nextIndex].getAttribute('data-tab');
+                        if (nextTab) {
+                            showTab(nextTab);
+                            tabBtns[nextIndex].focus();
+                        }
+                    }
+                });
+            });
+            
+            // Check URL hash on load
+            const hash = window.location.hash.substring(1);
+            const defaultTab = hash && tabBtns.length > 0 && Array.from(tabBtns).some(btn => 
+                btn.getAttribute('data-tab') === hash
+            ) ? hash : 'diceblox';
+            
+            // Initialize first tab as active
+            showTab(defaultTab);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize mobile menu
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const body = document.body;
+            
+            if (mobileMenu && navLinks) {
+                // Mobile menu toggle
+                mobileMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (navLinks.classList.contains('active') && 
+                        !e.target.closest('.nav-links') && 
+                        !e.target.closest('.mobile-menu')) {
+                        mobileMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
